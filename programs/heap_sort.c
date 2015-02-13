@@ -1,0 +1,105 @@
+//make a heap sort
+#include<stdio.h>
+int a[100]={'\0'};
+void check_insert(int n)//shuffle up
+{
+	int parent,temp;
+	n--;
+	while(n>1)
+	{
+		parent=n/2;
+		if(a[parent]>a[n])
+		{
+			temp=a[parent];
+			a[parent]=a[n];
+			a[n]=temp;
+			n=parent;
+		}
+		else
+			break;
+	}
+	return;
+}
+void check_delete(int n)//shuffle down
+{
+	int i,temp,max;
+	i=1;
+	n--;
+	while(i<=(n/2))
+	{
+		//	printf("i in check_delete %d\n",i);
+		if((a[i]>a[(2*i)+1])&&(a[i]>a[(2*i)])&&(a[(2*i)]!='\0')&&(a[(2*i)+1]!='\0'))
+		{
+			if(a[(2*i)]>a[(2*i)+1])
+			{
+				temp=a[i];
+				a[i]=a[(2*i)+1];
+				a[(2*i)+1]=temp;
+				i=(2*i)+1;
+				//			printf("SWAPPED 1 %d & %d\n",a[i],a[(2*i)+1]);
+			}
+			else
+			{
+				temp=a[i];
+				a[i]=a[(2*i)];
+				a[(2*i)]=temp;
+				i=(2*i);
+				//			printf("SWAPPED 1 %d & %d\n",a[i],a[(2*i)]);
+			}
+		}
+		else if((a[i]>a[(2*i)+1])&&(a[(2*i)+1]!='\0'))
+		{
+			temp=a[i];
+			a[i]=a[(2*i)+1];
+			a[(2*i)+1]=temp;
+			i=(2*i)+1;
+			//		printf("SWAPPED 2 %d & %d\n",a[i],a[(2*i)+1]);
+		}
+		else if((a[i]>a[(2*i)])&&(a[(2*i)]!='\0'))
+		{
+			temp=a[i];
+			a[i]=a[(2*i)];
+			a[(2*i)]=temp;
+			i=(2*i);
+			//		printf("SWAPPED 2 %d & %d\n",a[i],a[(2*i)]);
+		}
+		else
+			break;
+	}
+	return;
+}
+void print(int n)
+{
+	int i;
+	for(i=1;i<n;i++)
+	{
+		printf("%d\t",a[i]);
+	}
+	printf("\n");
+}
+int main()
+{
+	int n,i,o,j;
+	i=1;
+	printf("ENTER THE NUMBER OF ELEMENTS YOU WANT TO ENTER\n");
+	scanf("%d",&n);
+	printf("ENTER THE ELEMENTS\n");
+	for(j=0;j<n;j++)
+	{
+			scanf("%d",&o);
+			a[i]=o;
+			i++;
+			check_insert(i);
+	}
+	for(j=0;j<n;j++)
+	{
+			printf("%d ",a[1]);//printing the value first
+			//		printf("i value:%d\n",i);
+			i--;
+			a[1]=a[i];
+			a[i]='\0';
+			check_delete(i);
+	}
+	printf("\n");
+	return 0;
+}

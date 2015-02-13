@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>Stats for OJ</title>
+		<link href="http://web.iiit.ac.in/%7Enisarg.jhaveri/OJstats/favicon.ico" rel="icon" type="image/ico">
+		<script>
+			var elemLast;
+			var currLink;
+			var locate='http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/';
+			function showHideDetail(elem){
+				if(elemLast && elemLast!=elem)
+					elemLast.style.display='none';
+				if(elem.style.display=='none'){
+					elem.style.display='table-row';
+				}
+				else {
+					elem.style.display='none';
+				}
+				elemLast=elem;
+			}
+			function showAll(elem){
+				elem.innerHTML='<td colspan=3>Less...</td>';
+				elem.setAttribute('onclick','hideAll(this)');
+				var list=elem.parentNode.getElementsByTagName('tr');
+				for(i=0;i<list.length;i++){
+					if(list[i].style.display=='none')list[i].style.display='table-row';
+				}
+			}
+			function hideAll(elem){
+				elem.innerHTML='<td colspan=3>More...</td>';
+				elem.setAttribute('onclick','showAll(this)');
+				var list=elem.parentNode.getElementsByTagName('tr');
+				for(i=4;i<list.length-1;i++){
+					list[i].style.display='none';
+				}
+			}
+			function sortPage(mode,sortBy){
+				//lHref=currLink;
+				lHref=window.location.href;
+				patt=/.*(sort)=(-?\d+).*/g;
+				if(lHref.match(patt)){
+					lHref=lHref.replace(patt,'$2');
+					lHref=lHref*1;
+				}
+				else lHref=null;
+				finalLink='http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?';
+				finalLink+='mode='+mode;
+				if(lHref!=null){
+					finalLink+='&';
+					if(Math.abs(lHref)==sortBy){
+						finalLink+='sort='+(lHref*(-1));
+					}
+					else {
+						finalLink+='sort='+sortBy;
+					}
+				}
+				else {
+					finalLink+='&';
+					finalLink+='sort='+sortBy;
+				}
+				window.location.href=finalLink;
+				//getData(finalLink);
+			}
+			var search_selected=null
+			var last_val=null;
+			var resultFound=0;
+			function getresult(valu){
+				if(valu==''){
+					document.getElementById('result').innerHTML='';
+					return;
+				}
+				if(last_val!=null){
+					if(last_val==valu  && document.getElementById('result').innerHTML!='')
+						return;
+				}
+				if(window.XMLHttpRequest){
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttpLive=new XMLHttpRequest();
+				}
+				else{
+					// code for IE6, IE5
+					xmlhttpLive=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttpLive.onreadystatechange=function(){
+					if(this.readyState==4 && this.status==200){
+						if(xmlhttpLive.responseText!=''){
+							document.getElementById('result').innerHTML=xmlhttpLive.responseText;
+							resultFound=1;
+						}
+						else {
+							document.getElementById('result').innerHTML='No matches found';
+							resultFound=0;
+						}
+					}
+				}
+				xmlhttpLive.open("GET","search.php?q="+valu,true);
+				xmlhttpLive.send();
+				search_selected=null;
+				last_val=valu;
+			}
+			window.onkeydown=function(event){
+				elemContain=document.getElementById('result');
+				if(elemContain.innerHTML=='')return;
+				if(event.keyCode==13){
+					if(resultFound==1){
+						event.preventDefault();
+						elemList=document.getElementsByClassName('search_suggest');
+						if(search_selected!=null){
+							search_select(event,elemList[search_selected]);
+						}
+						else{
+							search_select(event,elemList[0]);
+						}
+					}
+				}
+				else if((event.keyCode==9 && event.shiftKey) || event.keyCode==38){
+					event.preventDefault();
+					elemList=document.getElementsByClassName('search_suggest');
+					if(search_selected!=null){
+						elem=elemList[search_selected];
+						elem.style.color='';
+						elem.style.backgroundColor='white';
+						if(elem.previousSibling){
+							elem=elem.previousSibling;
+							search_selected--;
+						}
+					}
+					else {
+						elem=elemList[elemList.length-1];
+						search_selected=elemList.length-1;
+					}
+					if(elemContain.scrollTop+elemContain.getBoundingClientRect().height<elem.offsetTop){
+						elemContain.scrollTop=(elem.offsetTop+elem.offsetHeight)-(elemContain.getBoundingClientRect().height);
+					}
+					else if(elemContain.scrollTop>elem.offsetTop){
+						elemContain.scrollTop=elem.offsetTop;
+					}
+					for(i=0;i<elemList.length;i++){
+						elemList[i].onmouseover='';
+					}
+					elem.style.color='white';
+					elem.style.backgroundColor='#387fca';
+				}
+				else if(event.keyCode==9 || event.keyCode==40){
+					event.preventDefault();
+					elemList=document.getElementsByClassName('search_suggest');
+					if(search_selected!=null){
+						elem=elemList[search_selected];
+						elem.style.color='';
+						elem.style.backgroundColor='white';
+						if(elem.nextSibling){
+							elem=elem.nextSibling;
+							search_selected++;
+						}
+					}
+					else {
+						elem=elemList[0];
+						search_selected=0;
+					}
+					if(elemContain.scrollTop+elemContain.getBoundingClientRect().height<elem.offsetTop){
+						elemContain.scrollTop=(elem.offsetTop+elem.offsetHeight)-(elemContain.getBoundingClientRect().height);
+					}
+					else if(elemContain.scrollTop>elem.offsetTop){
+						elemContain.scrollTop=elem.offsetTop;
+					}
+					for(i=0;i<elemList.length;i++){
+						elemList[i].onmouseover='';
+					}
+					elem.style.color='white';
+					elem.style.backgroundColor='#387fca';
+				}
+			}
+			window.onmousemove=function(event){
+				elemList=document.getElementsByClassName('search_suggest');
+				for(i=0;i<elemList.length;i++){
+					elemList[i].onmouseover=function(){
+						search_hover(event,this);
+					};
+				}
+			}
+			function search_hover(ev,elem){
+				elemList=elem.parentNode.childNodes;
+				for(i=0;i<elemList.length;i++){
+					elemList[i].onmouseover='';
+				}
+				if(search_selected!=null){
+					elemList[search_selected].style.color='';
+					elemList[search_selected].style.backgroundColor='white';
+				}
+				id=elem.id;
+				NodeId=id.substr(0,id.indexOf('_'));
+				search_selected=NodeId;
+				elem.style.color='white';
+				elem.style.backgroundColor='#387fca';
+			}
+			function search_select(ev,elem){
+				//ev.preventDefault();
+				id=elem.id;
+				finalLink='http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/';
+				rollNo=id.split("_")[1];
+				if(rollNo[0]=='P'){
+					finalLink+='?mode=2&prob='+rollNo;
+				}
+				else if(rollNo=='prob'){
+					finalLink+='?mode=1';
+				}
+				else if(rollNo=='user'){
+					finalLink+='';
+				}
+				else {
+					finalLink+='?roll='+rollNo;
+				}
+				window.location.href=finalLink;
+			}
+			function searchfocus(ev){
+				key=ev.keyCode;
+				if((!ev.ctrlKey) && (!ev.shiftKey) && (!ev.altKey) && ((key>=65 && key<=90) || (key>=97 && key<=122) || (key>=48 && key<=57)))
+					document.getElementById("search").focus();
+			}
+			function showGraphDetail(elem){
+				bL=elem.offsetLeft;
+				bT=elem.offsetTop;
+				bW=elem.offsetWidth;
+				eId=elem.id;
+				id=eId.replace('bar','det');
+				elem=document.getElementById(id);
+				elem.style.display='block';
+				elem.style.opacity=0;
+				dW=elem.offsetWidth;
+				dH=elem.offsetHeight;
+				elem.style.zIndex='9';
+				elem.style.opacity=1;
+				elem.style.left=(bL+(bW/2)-(dW/2))+'px';
+				elem.style.top=(bT-dH-10)+'px';
+				id=id.replace('det','arr');
+				elem=document.getElementById(id);
+				elem.style.display='block';
+				elem.style.opacity=0;
+				elem.offsetWidth;
+				elem.style.opacity=1;
+				elem.style.zIndex='10';
+				elem.style.left=(bL+(bW/2)-5)+'px';
+				elem.style.top=(bT-10)+'px';
+				id=id.replace('arr','arh');
+				elem=document.getElementById(id);
+				elem.style.display='block';
+				elem.style.opacity=0;
+				elem.offsetWidth;
+				elem.style.opacity=0.3;
+				elem.style.zIndex='8';
+				elem.style.left=(bL+(bW/2)-6)+'px';
+				elem.style.top=(bT-10)+'px';
+			}
+			function hideGraphDetail(elem){
+				eId=elem.id;
+				id=eId.replace('bar','det');
+				elem=document.getElementById(id);
+				elem.style.opacity=0;
+				elem.style.display='none';
+				id=id.replace('det','arr');
+				elem=document.getElementById(id);
+				elem.style.opacity=0;
+				elem.style.display='none';
+				id=id.replace('arr','arh');
+				elem=document.getElementById(id);
+				elem.style.opacity=0;
+				elem.style.display='none';
+			}
+			function formSubmit(){
+				var elem=document.getElementById('subDialogue');
+				var myForm=document.getElementById('probSubmit');
+				var formData=new FormData(myForm);
+				var subHTTP=new XMLHttpRequest();
+				myForm.submit.disabled=true;
+				subHTTP.onreadystatechange=function(){
+					if(this.readyState==4 && this.status==200){
+						var myForm=document.getElementById('probSubmit');
+						if(subHTTP.responseText=='Done'){
+							window.location.href=locate+'?roll='+myForm.username.value;
+						}
+						else {
+							myForm.submit.disabled=false;
+							alert(subHTTP.responseText);
+						}
+					}
+				}
+				subHTTP.open('POST', 'submit.php', true);
+				subHTTP.send(formData);
+				return false;
+			}
+			function subDial(){
+				var myForm=document.getElementById('probSubmit');
+				var elem=document.getElementById('subDialogue');
+				if(elem.style.top=='0%'){
+					window.onkeydown=function(event){searchfocus(event);}
+					elem.style.top='-100%';
+				}
+				else {
+					document.body.onkeydown=function(){};
+					window.onkeydown=function(event){
+						if(event.keyCode==27)
+							subDial();
+					}
+					elem.style.top='0%';
+					myForm.username.focus();
+				}
+			}
+		</script>
+		<style type="text/css">
+			.a_no_decor{
+				text-decoration:none;
+				color:inherit;
+			}
+			#allList{
+				width:75%;
+			}
+			tr.head{
+				background-color:#4cb1ba;
+				height:30px;
+			}
+			th.head{
+				cursor:pointer;
+			}
+			th.head:hover{
+				background-color:#4cbcbb;
+			}
+			tr.name{
+				background-color:#c4e4e7;
+				height:30px;
+			}
+			tr.name:hover{
+				background-color:#8ecacf;
+				height:30px;
+				cursor:pointer;
+			}
+			tr.detail{
+				background-color:#61e1ed;
+			}
+			#status{
+			}
+			tr.status_head{
+				background-color:#666666;
+				color:white;
+				height:30px;
+			}
+			tr.status_total{
+				background-color:#666666;
+				color:white;
+				height:30px;
+			}
+			tr.status{
+				height:30px;
+			}
+			th.prob{
+				padding-left:10px;
+				padding-right:10px;
+				cursor:pointer;
+			}
+			th.prob:hover{
+			}
+			#allRecord{
+			}
+			tr.record_head{
+				height:30px;
+				background-color:#666666;
+				color:white;
+			}
+			tr.acc{
+				height:30px;
+				background-color:#37E718;
+			}
+			tr.nacc{
+				height:30px;
+				background-color:#FF6600;
+			}
+			td.record,th.record{
+				padding-left:20px;
+				padding-right:20px;
+				text-align:center;
+			}
+			#prob{
+				width:75%;
+			}
+			th.prob{
+				padding-left:10px;
+				padding-right:10px;
+			}
+			tr.prob_row{
+				text-align:center;
+				background-color:#c4e4e7;
+				height:30px;
+			}
+			tr.prob_row:hover{
+				background-color:#8ecacf;
+				height:30px;
+				cursor:pointer;
+			}
+			.prob_all{
+				width:100%;
+			}
+			tr.prob_all_row{
+				text-align:center;
+				background-color:#c4e4e7;
+				height:30px;
+			}
+			tr.prob_all_row:hover{
+				background-color:#8ecacf;
+				height:30px;
+			}
+			td.prob_all_data{
+				padding-left:10px;
+				padding-right:10px;
+			}
+			#subDialogue{
+				background-color:rgba(0,0,0,0.5);
+				position:fixed;
+				left:0%;
+				right:0%;
+				top:-100%;
+				height:100%;
+				transition: all 0.7s;
+			}
+			#subDialogue table{
+				padding:25px;
+				background-color:white;
+				box-shadow:0px 0px 5px #888888;
+			}
+			#subDialogue td{
+				padding-right:5px;
+			}
+			#probSubClose{
+				background-color:white;
+				text-align:center;
+				line-height:25px;
+				position:absolute;
+				border-radius:50px;
+				box-shadow:0px 0px 5px #888888;
+				width:25px;
+				height:25px;
+				top:-10px;
+				right:-10px;
+				transition:all 0.1s;
+				font-size:100%;
+				cursor:pointer;
+			}
+			#probSubClose:hover{
+				line-height:35px;
+				width:35px;
+				height:35px;
+				top:-15px;
+				right:-15px;
+				font-size:120%;
+			}
+			#subButt{
+				cursor:pointer;
+				display:inline-block;
+				border-radius:5px;
+				padding:5px 10px 5px 10px;
+				box-shadow:0px 0px 5px black;
+				font-size:120%;
+				margin-left:45%;
+				margin-top:15px;
+			}
+			#subButt:hover{
+				box-shadow:0px 0px 2px black;
+			}
+			#subButt:active{
+				box-shadow:0px 0px 2px black inset;
+			}
+			#graph_contain{
+				position:relative;
+				text-align:center;
+			}
+			#prob_graph{
+				position:relative;
+				display:inline-block;
+				width:50%;
+				/*margin-left:auto;
+				margin-right:auto;*/
+			}
+			#prob_graph:before{
+				content:"";
+				display:block;
+				padding-top:60%;
+			}
+			.graph_bar{
+				position:absolute;
+				float:left;
+				background-color:#82B9BD;
+				padding-top:10px;
+				font-size:1vw;
+				cursor:pointer;
+			}
+			.graph_bar:hover{
+				background-color:#46A3AB;
+				font-weight:bold;
+				text-shadow:1px 2px 3px white;
+			}
+			.graph_det{
+				display:none;
+				position:absolute;
+				background-color:rgba(255,255,255,0.7);
+				box-shadow:0px 0px 3px black;
+				border-radius:3px;
+				padding:5px;
+				transition: all 0.5s;
+			}
+			.graph_det_arrow{
+				display:none;
+				position:absolute;
+				border:6px solid transparent;
+				border-top-color:white;
+				transition: all 0.5s;
+			}
+			.graph_det_arrow_help{
+				display:none;
+				position:absolute;
+				border:7px solid transparent;
+				border-top-color:black;
+				opacity:0.3;
+				transition: all 0.5s;
+			}
+			.nav{
+				background-color:#EFE8D7;
+				cursor:pointer;
+				padding-left:20px;
+				padding-right:10px;
+			}
+			.nav:hover{
+			} 
+			.nav_row{
+				font-size:120%;
+			}
+			.nav_title{
+				cursor:pointer;
+				font-size:150%;
+				padding-left:20px;
+				padding-right:20px;
+				border-bottom: 1px solid #666666;
+			}
+			.table_head{
+				font-size:120%;
+			}
+			#result{
+				position:absolute;
+				background-color:white;
+				max-height:50%;
+				overflow-y:auto;
+			}
+			
+			
+			#prob_partition{
+				width:80%;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			#prob_partition tr{
+				vertical-align:top;
+			}
+			#prob_part{
+				width:70%;
+			}
+			#stat_part{
+				padding-top:15px;
+				text-align:center;
+				width:30%;
+			}
+			.probList{
+				//border:1px solid red;
+				margin-left:25%;
+			}
+			.prob_head{
+				font-size:150%;
+				padding:5px 50px 5px 5px;
+			}
+			.prob_name{
+				padding-left:50px;
+			}
+			#content {
+				font-family:Arial, Helvetica, sans-serif;
+				line-height:25px;
+				padding:0px 15px 0px 15px;
+				/*margin-left: 20%;
+				margin-right: 20%;*/
+				font-size:85%;
+			}
+			/* Copied from OJ -- to show problem correctly*/
+			#content h1 {
+				font-size:1.1em;
+				font-family:Arial, Helvetica, sans-serif;
+				padding:15px 0px 0px 0px;
+				text-align:center;
+				text-transform:uppercase;
+			}
+			#content h2 {
+				text-align:center;
+				border:1px solid #888;
+				background-color:#A00;
+				color:#FFF;
+				width:75%;
+				margin:10px auto;
+			}
+			#content a {
+				font-weight:bold;
+			}
+			#content ul {
+				margin:0;
+				padding:0px 0px 0px 30px;
+			}
+			#content ul a {
+				color:#000;
+				text-decoration:none;
+				font-weight:normal;
+				font-style:italic;
+			}
+			#content img.left {
+				float:left;
+				padding:0px 20px 10px 0px;
+				vertical-align:middle;
+			}
+			#content img.right {
+				float:left;
+				padding:0px 0px 10px 20px;
+			}
+			#content table.data {
+				text-align:center;
+				border:2px solid #AAA;
+				margin:10px auto;
+				width:75%;
+			}
+			#content table.data thead {
+				font-weight:bold;
+				color:#FFF;
+			}
+			#content table.data thead td{
+				background:#666;
+				padding:5px 25px 5px 25px;
+			}
+			#content table.data tr.alt {
+				background:#DDD;
+			}
+			#content table.info {
+				text-align:left;
+				border:none;
+				width:60%;
+				margin:10px auto;
+				font-weight:bold;
+			}
+			#content table.info thead {
+				font-weight:bold;
+				color:#FFF;
+			}
+			#content table.info thead td{
+				background:#555;
+				padding:5px 25px 5px 25px;
+			}
+			#content table.info td {
+				padding:2px 10px 2px 10px;
+			}
+			#content table.info tr.alt {
+				background:#ACA;
+			}
+			/* Copied from OJ over */
+		</style>
+	</head>
+	<body onkeydown="searchfocus(event)">
+		<div>
+			<table align="center" width="75%">
+				<tbody><tr class="nav_row">
+					<td class="nav_title" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/"'>OJstats</td>
+					<td class="nav" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?mode=3"'>My</td>
+					<td class="nav" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?mode=0"'>User-wise</td>
+					<td class="nav" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?mode=1"'>Problem-wise</td>
+					<td class="nav" style="cursor:default;">
+						<form style="display:inline;" method="get" action="" onsubmit='this.roll.value=this.search.value;if(this.roll.value=="")return false;'>
+							<input name="search" id="search" autocomplete="off" placeholder="Type where you want to go" style="height:30px;width:75%;" onkeyup="getresult(this.value)" onfocus="getresult(this.value)" onblur='document.getElementById("result").innerHTML="";' type="search">
+							<input name="roll" type="hidden">
+							<input value="Go" style="height:30px;width:20%;" type="submit">
+						</form>
+						<div id="result"></div>
+					</td>
+				</tr>
+				<tr>
+										<td colspan="5" style="text-align:right;padding-top:10px;font-size:120%;"><a class="a_no_decor" href="http://web.iiit.ac.in/%7Enisarg.jhaveri/OJstats/?login=1">Login</a></td>
+									</tr>
+			</tbody></table>
+		</div>
+		<hr width="75%">
+		<div style="margin-left:15%;margin-right:15%;font-size:130%;">
+			<br>• Also see the time of submission with other submission details!
+			<br>• Now you can login with IIIT CAS to use it in more personalized way.
+			<br>• Thanks to Harshit Harchani for the icon<br>
+			<br>
+		</div>
+<table id="prob_partition"><tbody><tr><td id="prob_part"><div id="content"><div onclick="subDial();" id="subButt">Submit<sup> β</sup></div><div id="subDialogue"><form method="POST" action="submit.php?old=1" onsubmit="return formSubmit();" id="probSubmit" enctype="multipart/form-data"><br><br><br><table style="position:relative" id="subTab" align="center"><tbody><tr><td colspan="2" style="font-size:150%;text-align:center;padding-bottom:25px;">Submit problem<sup> β</sup></td></tr><tr><td>Roll No :</td><td><input value="201364092" name="username" required="" type="text"><div id="probSubClose" onclick="subDial();">X</div></td></tr><tr><td>Password :</td><td><input name="passwd" required="" type="password"></td></tr><tr><td>Problem ID :</td><td>P5<input name="pid" value="P5" type="hidden"></td></tr><tr><td>Language :</td><td>GNU GCC 4.3<input name="lang" value="C" type="hidden"></td></tr><tr><td>File :</td><td><input name="MAX_FILE_SIZE" value="5000" type="hidden"><input name="upload" id="upload" required="" type="file"></td></tr><tr><td></td><td><input name="submit" value="Submit" type="submit"></td></tr><tr><td colspan="2" style="font-size:120%;text-align:center;padding-top:15px;" onclick='document.getElementById("subTab").style.display="none";document.getElementById("disclaim").style.display="block";'>*Disclaimer</td></tr></tbody></table></form><div id="disclaim" style="width:50%;position:relative;margin:auto;padding:10px;display:none;background-color:white;"><div id="probSubClose" onclick='document.getElementById("subTab").style.display="";document.getElementById("disclaim").style.display="none";'>X</div>This feature is currently in the beta state and can be turned off without any prior notice.<br>The process of submission is fully automatic and does not save your password or code anywhere.<br>If your password is compromised or someone steals your code, I am not responsible for that.<br>If you don't trust this app, don't use this feature.</div></div>
+					<h1>Problem 5 : </h1><br>
+					
+					You are conducting an online entrance examination for the students. Students will be attempting the
+					test and you will be getting the scores of them. A student is qualified if his score is in the top one-
+					fourth(integer division) of the total scores. Now, you want to calculate the cutoff, i.e, the least score
+					among the qualified students. But, new students will be taking the exam continuously and so the cutoff
+					keeps on changing. Your job is to report the cutoff at any time.
+					Notes: The number of students qualified at any time will be floor(t/4), where t denotes the total number
+					of scores.<br>
+					Input:<br>
+					First line of the input consists of N, the number of lines to follow. Each of the next N lines is an
+					operation which can be of two types:<br>
+					1 : Report the current cutoff<br>
+					2 s : New score 's' of some student who attempted the test now.<br>
+					Output:<br>
+					Output the current cutoff for every type 1 operation. If no student is qualified yet, print -1.<br>
+					Constraints:<br>
+					1 ≤ N ≤ 300000<br>
+					1 ≤ x ≤ 10^9<br>
+					<b>Sample Input:</b><br>
+					12<br>
+					1<br>
+					2 1<br>
+					2 7<br>
+					1<br>
+					2 9<br>
+					2 20<br>
+					2 8<br>
+					2 5<br>
+					1<br>
+					2 9<br>
+					2 6<br>
+					1<br>
+					<b>Sample Output:</b><br>
+					-1<br>
+					-1<br>
+					20<br>
+					9<br>
+				</div></td><td id="stat_part"><input checked="checked" id="do_upd" onchange='if(this.checked){upd_prob_timer=setTimeout(function(){upd_prob();},5000);this.nextSibling.innerHTML="Live updates are on";}else {clearTimeout(upd_prob_timer);this.nextSibling.innerHTML="Live updates are off";}' type="checkbox"><span id="live_upd">Live updates are on<script>elem=document.getElementById('live_upd');if(!elem.previousSibling.checked)elem.innerHTML='Live updates are off';</script></span><br><br><div style="display: none;" id="prob_last_sub_2"><table id="allRecord" style="max-width:85%;" align="center"><tbody><tr><td colspan="4" class="table_head">Last few submissions</td></tr><tr class="record_head"><th class="record">Name</th><th class="record">Score</th></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330085"'><td class="record">Naman kumar jain</td><td class="record">60</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330172"'><td class="record">Anil Rayala</td><td class="record">0</td></tr><tr class="acc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356126"'><td class="record">Venu Madhav Kattagoni</td><td class="record">100</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330172"'><td class="record">Anil Rayala</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201301230"'><td class="record">Karusala Sri Vaishnavi</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356126"'><td class="record">Venu Madhav Kattagoni</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201302139"'><td class="record">Allaparthi Sriteja</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356193"'><td class="record">Kartavya Gupta</td><td class="record">20</td></tr><tr class="acc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330166"'><td class="record">P Lakshmi Aasritha</td><td class="record">100</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330172"'><td class="record">Anil Rayala</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356193"'><td class="record">Kartavya Gupta</td><td class="record">20</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201301060"'><td class="record">Javvaji Kiran</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201331117"'><td class="record">Anurag Deshmukh</td><td class="record">60</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330166"'><td class="record">P Lakshmi Aasritha</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201301230"'><td class="record">Karusala Sri Vaishnavi</td><td class="record">0</td></tr></tbody></table><a href="http://web.iiit.ac.in/%7Enisarg.jhaveri/OJstats/?mode=2&amp;prob=P5&amp;showAll=1">See all submissions</a></div><div style="display: block;" id="prob_last_sub"><table id="allRecord" style="max-width:85%;" align="center"><tbody><tr><td colspan="4" class="table_head">Last few submissions</td></tr><tr class="record_head"><th class="record">Name</th><th class="record">Score</th></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330085"'><td class="record">Naman kumar jain</td><td class="record">60</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330172"'><td class="record">Anil Rayala</td><td class="record">0</td></tr><tr class="acc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356126"'><td class="record">Venu Madhav Kattagoni</td><td class="record">100</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330172"'><td class="record">Anil Rayala</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201301230"'><td class="record">Karusala Sri Vaishnavi</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356126"'><td class="record">Venu Madhav Kattagoni</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201302139"'><td class="record">Allaparthi Sriteja</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356193"'><td class="record">Kartavya Gupta</td><td class="record">20</td></tr><tr class="acc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330166"'><td class="record">P Lakshmi Aasritha</td><td class="record">100</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330172"'><td class="record">Anil Rayala</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201356193"'><td class="record">Kartavya Gupta</td><td class="record">20</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201301060"'><td class="record">Javvaji Kiran</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201331117"'><td class="record">Anurag Deshmukh</td><td class="record">60</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201330166"'><td class="record">P Lakshmi Aasritha</td><td class="record">0</td></tr><tr class="nacc" style="cursor:pointer" onclick='window.location.href="http://web.iiit.ac.in/~nisarg.jhaveri/OJstats/?roll=201301230"'><td class="record">Karusala Sri Vaishnavi</td><td class="record">0</td></tr></tbody></table><a href="http://web.iiit.ac.in/%7Enisarg.jhaveri/OJstats/?mode=2&amp;prob=P5&amp;showAll=1">See all submissions</a></div><script>
+			function upd_prob(){
+				if(!document.getElementById('do_upd').checked)return;
+				elem=document.getElementById('prob_last_sub');
+				elem2=document.getElementById('prob_last_sub_2');
+				if(window.XMLHttpRequest){
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp=new XMLHttpRequest();
+				}
+				else{
+					// code for IE6, IE5
+					xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
+				}
+				xmlhttp.onreadystatechange=function(){
+					if(this.readyState==4 && this.status==200){
+						if(!document.getElementById('do_upd').checked)return;
+						elem2.innerHTML=xmlhttp.responseText;
+						elem.id='prob_last_sub_2';
+						elem.style.display='none';
+						elem2.id='prob_last_sub';
+						elem2.style.display='block';
+						upd_prob_timer=setTimeout(function(){upd_prob();},5000);
+					}
+				}
+				xmlhttp.open('GET','probData.php?showAll=0&prob=P5',true);
+				xmlhttp.send();
+			}
+			upd_prob_timer=setTimeout(function(){upd_prob();},5000);
+		</script></td></tr></tbody></table>		
+		<div>
+			<hr width="75%">
+			<table align="center" width="75%">
+								<tbody><tr>
+					<td>
+						OJstats got total 1100 hits, today.
+					</td>
+				</tr>
+								<tr>
+					<td>
+						Developed by Nisarg Jhaveri
+					</td>
+				</tr>
+			</tbody></table>
+		</div>
+	
+
+</body></html>

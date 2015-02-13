@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html class="v2" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b" xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr"><!--Custom code goes here--><head><link href="evaluating-postfix-expression_files/shCore.css" rel="stylesheet" type="text/css">
+<link href="evaluating-postfix-expression_files/shThemeDefault.css" rel="stylesheet" type="text/css">
+<script async="" src="evaluating-postfix-expression_files/cbgapi.loaded_2"></script><script async="" src="evaluating-postfix-expression_files/cbgapi.loaded_1"></script><script async="" src="evaluating-postfix-expression_files/cbgapi.loaded_0"></script><script src="evaluating-postfix-expression_files/shCore.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushAS3.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushBash.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushColdFusion.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushCSharp.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushCpp.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushCss.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushDelphi.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushDiff.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushErlang.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushGroovy.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushJScript.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushJava.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushJavaFX.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushPerl.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushPhp.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushPlain.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushPowerShell.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushPython.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushRuby.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushScala.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushSql.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushVb.js" type="text/javascript"></script>
+<script src="evaluating-postfix-expression_files/shBrushXml.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	SyntaxHighlighter.config.bloggerMode = true;
+	SyntaxHighlighter.all();
+</script>
+
+<meta content="width=1100" name="viewport">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<script type="text/javascript">(function() { var b=window,f="chrome",g="jstiming",k="tick";(function(){function d(a){this.t={};this.tick=function(a,d,c){var e=void 0!=c?c:(new Date).getTime();this.t[a]=[e,d];if(void 0==c)try{b.console.timeStamp("CSI/"+a)}catch(h){}};this[k]("start",null,a)}var a;b.performance&&(a=b.performance.timing);var n=a?new d(a.responseStart):new d;b.jstiming={Timer:d,load:n};if(a){var c=a.navigationStart,h=a.responseStart;0<c&&h>=c&&(b[g].srt=h-c)}if(a){var e=b[g].load;0<c&&h>=c&&(e[k]("_wtsrt",void 0,c),e[k]("wtsrt_","_wtsrt",h),e[k]("tbsd_","wtsrt_"))}try{a=null,
+b[f]&&b[f].csi&&(a=Math.floor(b[f].csi().pageT),e&&0<c&&(e[k]("_tbnd",void 0,b[f].csi().startE),e[k]("tbnd_","_tbnd",c))),null==a&&b.gtbExternal&&(a=b.gtbExternal.pageT()),null==a&&b.external&&(a=b.external.pageT,e&&0<c&&(e[k]("_tbnd",void 0,b.external.startE),e[k]("tbnd_","_tbnd",c))),a&&(b[g].pt=a)}catch(p){}})();b.tickAboveFold=function(d){var a=0;if(d.offsetParent){do a+=d.offsetTop;while(d=d.offsetParent)}d=a;750>=d&&b[g].load[k]("aft")};var l=!1;function m(){l||(l=!0,b[g].load[k]("firstScrollTime"))}b.addEventListener?b.addEventListener("scroll",m,!1):b.attachEvent("onscroll",m);
+ })();</script>
+<meta content="blogger" name="generator">
+<link href="http://see-programming.blogspot.in/favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://see-programming.blogspot.com/2013/02/evaluating-postfix-expression-using.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="C Programming For Dummies - Atom" href="http://see-programming.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="C Programming For Dummies - RSS" href="http://see-programming.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="C Programming For Dummies - Atom" href="http://www.blogger.com/feeds/3063941734768192839/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="C Programming For Dummies - Atom" href="http://see-programming.blogspot.com/feeds/6427305642984282195/comments/default">
+<!--[if IE]><script type="text/javascript" src="https://www.blogger.com/static/v1/jsbin/850967532-ieretrofit.js"></script>
+<![endif]-->
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>C Programming For Dummies: C Program To Evaluate Postfix Expression Using Array</title>
+<link type="text/css" rel="stylesheet" href="evaluating-postfix-expression_files/3160349130-widget_css_2_bundle.css">
+<link type="text/css" rel="stylesheet" href="evaluating-postfix-expression_files/gsearch.css">
+<link type="text/css" rel="stylesheet" href="evaluating-postfix-expression_files/authorization.css">
+<style id="page-skin-1" type="text/css"><!--
+/*-----------------------------------------------
+Blogger Template Style
+Name:     Picture Window
+Designer: Josh Peterson
+URL:      www.noaesthetic.com
+----------------------------------------------- */
+/* Variable definitions
+====================
+<Variable name="keycolor" description="Main Color" type="color" default="#1a222a"/>
+<Variable name="body.background" description="Body Background" type="background"
+color="#dbdbdb" default="#111111 url(//themes.googleusercontent.com/image?id=1OACCYOE0-eoTRTfsBuX1NMN9nz599ufI1Jh0CggPFA_sK80AGkIr8pLtYRpNUKPmwtEa) repeat-x fixed top center"/>
+<Group description="Page Text" selector="body">
+<Variable name="body.font" description="Font" type="font"
+default="normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="body.text.color" description="Text Color" type="color" default="#333333"/>
+</Group>
+<Group description="Backgrounds" selector=".body-fauxcolumns-outer">
+<Variable name="body.background.color" description="Outer Background" type="color" default="#296695"/>
+<Variable name="header.background.color" description="Header Background" type="color" default="transparent"/>
+<Variable name="post.background.color" description="Post Background" type="color" default="#ffffff"/>
+</Group>
+<Group description="Links" selector=".main-outer">
+<Variable name="link.color" description="Link Color" type="color" default="#336699"/>
+<Variable name="link.visited.color" description="Visited Color" type="color" default="#6699cc"/>
+<Variable name="link.hover.color" description="Hover Color" type="color" default="#33aaff"/>
+</Group>
+<Group description="Blog Title" selector=".header h1">
+<Variable name="header.font" description="Title Font" type="font"
+default="normal normal 36px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="header.text.color" description="Text Color" type="color" default="#ffffff" />
+</Group>
+<Group description="Tabs Text" selector=".tabs-inner .widget li a">
+<Variable name="tabs.font" description="Font" type="font"
+default="normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="tabs.text.color" description="Text Color" type="color" default="#ffffff"/>
+<Variable name="tabs.selected.text.color" description="Selected Color" type="color" default="#860e0e"/>
+</Group>
+<Group description="Tabs Background" selector=".tabs-outer .PageList">
+<Variable name="tabs.background.color" description="Background Color" type="color" default="transparent"/>
+<Variable name="tabs.selected.background.color" description="Selected Color" type="color" default="transparent"/>
+<Variable name="tabs.separator.color" description="Separator Color" type="color" default="transparent"/>
+</Group>
+<Group description="Post Title" selector="h3.post-title, .comments h4">
+<Variable name="post.title.font" description="Title Font" type="font"
+default="normal normal 18px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+</Group>
+<Group description="Date Header" selector=".date-header">
+<Variable name="date.header.color" description="Text Color" type="color" default="#000000"/>
+</Group>
+<Group description="Post" selector=".post">
+<Variable name="post.footer.text.color" description="Footer Text Color" type="color" default="#999999"/>
+<Variable name="post.border.color" description="Border Color" type="color" default="#dddddd"/>
+</Group>
+<Group description="Gadgets" selector="h2">
+<Variable name="widget.title.font" description="Title Font" type="font"
+default="bold normal 13px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="widget.title.text.color" description="Title Color" type="color" default="#888888"/>
+</Group>
+<Group description="Footer" selector=".footer-outer">
+<Variable name="footer.text.color" description="Text Color" type="color" default="#cccccc"/>
+<Variable name="footer.widget.title.text.color" description="Gadget Title Color" type="color" default="#aaaaaa"/>
+</Group>
+<Group description="Footer Links" selector=".footer-outer">
+<Variable name="footer.link.color" description="Link Color" type="color" default="#99ccee"/>
+<Variable name="footer.link.visited.color" description="Visited Color" type="color" default="#77aaee"/>
+<Variable name="footer.link.hover.color" description="Hover Color" type="color" default="#33aaff"/>
+</Group>
+<Variable name="content.margin" description="Content Margin Top" type="length" default="20px"/>
+<Variable name="content.padding" description="Content Padding" type="length" default="0"/>
+<Variable name="content.background" description="Content Background" type="background"
+default="transparent none repeat scroll top left"/>
+<Variable name="content.border.radius" description="Content Border Radius" type="length" default="0"/>
+<Variable name="content.shadow.spread" description="Content Shadow Spread" type="length" default="0"/>
+<Variable name="header.padding" description="Header Padding" type="length" default="0"/>
+<Variable name="header.background.gradient" description="Header Gradient" type="url"
+default="none"/>
+<Variable name="header.border.radius" description="Header Border Radius" type="length" default="0"/>
+<Variable name="main.border.radius.top" description="Main Border Radius" type="length" default="20px"/>
+<Variable name="footer.border.radius.top" description="Footer Border Radius Top" type="length" default="0"/>
+<Variable name="footer.border.radius.bottom" description="Footer Border Radius Bottom" type="length" default="20px"/>
+<Variable name="region.shadow.spread" description="Main and Footer Shadow Spread" type="length" default="3px"/>
+<Variable name="region.shadow.offset" description="Main and Footer Shadow Offset" type="length" default="1px"/>
+<Variable name="tabs.background.gradient" description="Tab Background Gradient" type="url" default="none"/>
+<Variable name="tab.selected.background.gradient" description="Selected Tab Background" type="url"
+default="url(//www.blogblog.com/1kt/transparent/white80.png)"/>
+<Variable name="tab.background" description="Tab Background" type="background"
+default="transparent url(//www.blogblog.com/1kt/transparent/black50.png) repeat scroll top left"/>
+<Variable name="tab.border.radius" description="Tab Border Radius" type="length" default="10px" />
+<Variable name="tab.first.border.radius" description="First Tab Border Radius" type="length" default="10px" />
+<Variable name="tabs.border.radius" description="Tabs Border Radius" type="length" default="0" />
+<Variable name="tabs.spacing" description="Tab Spacing" type="length" default=".25em"/>
+<Variable name="tabs.margin.bottom" description="Tab Margin Bottom" type="length" default="0"/>
+<Variable name="tabs.margin.sides" description="Tab Margin Sides" type="length" default="20px"/>
+<Variable name="main.background" description="Main Background" type="background"
+default="transparent url(//www.blogblog.com/1kt/transparent/white80.png) repeat scroll top left"/>
+<Variable name="main.padding.sides" description="Main Padding Sides" type="length" default="20px"/>
+<Variable name="footer.background" description="Footer Background" type="background"
+default="transparent url(//www.blogblog.com/1kt/transparent/black50.png) repeat scroll top left"/>
+<Variable name="post.margin.sides" description="Post Margin Sides" type="length" default="-20px"/>
+<Variable name="post.border.radius" description="Post Border Radius" type="length" default="5px"/>
+<Variable name="widget.title.text.transform" description="Widget Title Text Transform" type="string" default="uppercase"/>
+<Variable name="mobile.background.overlay" description="Mobile Background Overlay" type="string"
+default="transparent none repeat scroll top left"/>
+<Variable name="startSide" description="Side where text starts in blog language" type="automatic" default="left"/>
+<Variable name="endSide" description="Side where text ends in blog language" type="automatic" default="right"/>
+*/
+/* Content
+----------------------------------------------- */
+body {
+font: normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+color: #000000;
+background: #fbb1b2 url(//themes.googleusercontent.com/image?id=1IgO1wWgj0K_rUZAoQza9BXyXF8I_PEFrP-DP9u0fUqePLlRNOTLtrSyYQglz9OZfPNqD) repeat fixed top center /* Credit: merrymoonmary (http://www.istockphoto.com/googleimages.php?id=10989085&platform=blogger) */;
+}
+html body .region-inner {
+min-width: 0;
+max-width: 100%;
+width: auto;
+}
+.content-outer {
+font-size: 90%;
+}
+a:link {
+text-decoration:none;
+color: #860e0e;
+}
+a:visited {
+text-decoration:none;
+color: #2c0000;
+}
+a:hover {
+text-decoration:underline;
+color: #c12a10;
+}
+.content-outer {
+background: transparent url(//www.blogblog.com/1kt/transparent/white80.png) repeat scroll top left;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+-goog-ms-border-radius: 15px;
+border-radius: 15px;
+-moz-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+margin: 30px auto;
+}
+.content-inner {
+padding: 15px;
+}
+/* Header
+----------------------------------------------- */
+.header-outer {
+background: #860e0e url(//www.blogblog.com/1kt/transparent/header_gradient_shade.png) repeat-x scroll top left;
+_background-image: none;
+color: #ffffff;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-goog-ms-border-radius: 10px;
+border-radius: 10px;
+}
+.Header img, .Header #header-inner {
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-goog-ms-border-radius: 10px;
+border-radius: 10px;
+}
+.header-inner .Header .titlewrapper,
+.header-inner .Header .descriptionwrapper {
+padding-left: 30px;
+padding-right: 30px;
+}
+.Header h1 {
+font: normal normal 36px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.Header h1 a {
+color: #ffffff;
+}
+.Header .description {
+font-size: 130%;
+}
+/* Tabs
+----------------------------------------------- */
+.tabs-inner {
+margin: .5em 0 0;
+padding: 0;
+}
+.tabs-inner .section {
+margin: 0;
+}
+.tabs-inner .widget ul {
+padding: 0;
+background: #f3f3f3 url(//www.blogblog.com/1kt/transparent/tabs_gradient_shade.png) repeat scroll bottom;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-goog-ms-border-radius: 10px;
+border-radius: 10px;
+}
+.tabs-inner .widget li {
+border: none;
+}
+.tabs-inner .widget li a {
+display: inline-block;
+padding: .5em 1em;
+margin-right: 0;
+color: #860e0e;
+font: normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+-moz-border-radius: 0 0 0 0;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-goog-ms-border-radius: 0 0 0 0;
+border-radius: 0 0 0 0;
+background: transparent none no-repeat scroll top left;
+border-right: 1px solid #cacaca;
+}
+.tabs-inner .widget li:first-child a {
+padding-left: 1.25em;
+-moz-border-radius-topleft: 10px;
+-moz-border-radius-bottomleft: 10px;
+-webkit-border-top-left-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-goog-ms-border-top-left-radius: 10px;
+-goog-ms-border-bottom-left-radius: 10px;
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+}
+.tabs-inner .widget li.selected a,
+.tabs-inner .widget li a:hover {
+position: relative;
+z-index: 1;
+background: #ffffff url(//www.blogblog.com/1kt/transparent/tabs_gradient_shade.png) repeat scroll bottom;
+color: #000000;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+}
+/* Headings
+----------------------------------------------- */
+h2 {
+font: bold normal 13px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+text-transform: uppercase;
+color: #5f5f5f;
+margin: .5em 0;
+}
+/* Main
+----------------------------------------------- */
+.main-outer {
+background: transparent none repeat scroll top center;
+-moz-border-radius: 0 0 0 0;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-webkit-border-bottom-left-radius: 0;
+-webkit-border-bottom-right-radius: 0;
+-goog-ms-border-radius: 0 0 0 0;
+border-radius: 0 0 0 0;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+}
+.main-inner {
+padding: 15px 5px 20px;
+}
+.main-inner .column-center-inner {
+padding: 0 0;
+}
+.main-inner .column-left-inner {
+padding-left: 0;
+}
+.main-inner .column-right-inner {
+padding-right: 0;
+}
+/* Posts
+----------------------------------------------- */
+h3.post-title {
+margin: 0;
+font: normal normal 18px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+.comments h4 {
+margin: 1em 0 0;
+font: normal normal 18px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+.date-header span {
+color: #000000;
+}
+.post-outer {
+background-color: #ffffff;
+border: solid 1px #dbdbdb;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+-goog-ms-border-radius: 10px;
+padding: 15px 20px;
+margin: 0 -20px 20px;
+}
+.post-body {
+line-height: 1.4;
+font-size: 110%;
+position: relative;
+}
+.post-header {
+margin: 0 0 1.5em;
+color: #969696;
+line-height: 1.6;
+}
+.post-footer {
+margin: .5em 0 0;
+color: #969696;
+line-height: 1.6;
+}
+#blog-pager {
+font-size: 140%
+}
+#comments .comment-author {
+padding-top: 1.5em;
+border-top: dashed 1px #ccc;
+border-top: dashed 1px rgba(128, 128, 128, .5);
+background-position: 0 1.5em;
+}
+#comments .comment-author:first-child {
+padding-top: 0;
+border-top: none;
+}
+.avatar-image-container {
+margin: .2em 0 0;
+}
+/* Comments
+----------------------------------------------- */
+.comments .comments-content .icon.blog-author {
+background-repeat: no-repeat;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9sLFwMeCjjhcOMAAAD+SURBVDjLtZSvTgNBEIe/WRRnm3U8RC1neQdsm1zSBIU9VVF1FkUguQQsD9ITmD7ECZIJSE4OZo9stoVjC/zc7ky+zH9hXwVwDpTAWWLrgS3QAe8AZgaAJI5zYAmc8r0G4AHYHQKVwII8PZrZFsBFkeRCABYiMh9BRUhnSkPTNCtVXYXURi1FpBDgArj8QU1eVXUzfnjv7yP7kwu1mYrkWlU33vs1QNu2qU8pwN0UpKoqokjWwCztrMuBhEhmh8bD5UDqur75asbcX0BGUB9/HAMB+r32hznJgXy2v0sGLBcyAJ1EK3LFcbo1s91JeLwAbwGYu7TP/3ZGfnXYPgAVNngtqatUNgAAAABJRU5ErkJggg==);
+}
+.comments .comments-content .loadmore a {
+border-top: 1px solid #c12a10;
+border-bottom: 1px solid #c12a10;
+}
+.comments .continue {
+border-top: 2px solid #c12a10;
+}
+/* Widgets
+----------------------------------------------- */
+.widget ul, .widget #ArchiveList ul.flat {
+padding: 0;
+list-style: none;
+}
+.widget ul li, .widget #ArchiveList ul.flat li {
+border-top: dashed 1px #ccc;
+border-top: dashed 1px rgba(128, 128, 128, .5);
+}
+.widget ul li:first-child, .widget #ArchiveList ul.flat li:first-child {
+border-top: none;
+}
+.widget .post-body ul {
+list-style: disc;
+}
+.widget .post-body ul li {
+border: none;
+}
+/* Footer
+----------------------------------------------- */
+.footer-outer {
+color:#ececec;
+background: transparent url(//www.blogblog.com/1kt/transparent/black50.png) repeat scroll top left;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-top-left-radius: 10px;
+-webkit-border-top-right-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-webkit-border-bottom-right-radius: 10px;
+-goog-ms-border-radius: 10px 10px 10px 10px;
+border-radius: 10px 10px 10px 10px;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+}
+.footer-inner {
+padding: 10px 5px 20px;
+}
+.footer-outer a {
+color: #fffada;
+}
+.footer-outer a:visited {
+color: #cac496;
+}
+.footer-outer a:hover {
+color: #ffffff;
+}
+.footer-outer .widget h2 {
+color: #b9b9b9;
+}
+/* Mobile
+----------------------------------------------- */
+html body.mobile {
+height: auto;
+}
+html body.mobile {
+min-height: 480px;
+background-size: 100% auto;
+}
+.mobile .body-fauxcolumn-outer {
+background: transparent none repeat scroll top left;
+}
+html .mobile .mobile-date-outer, html .mobile .blog-pager {
+border-bottom: none;
+background: transparent none repeat scroll top center;
+margin-bottom: 10px;
+}
+.mobile .date-outer {
+background: transparent none repeat scroll top center;
+}
+.mobile .header-outer, .mobile .main-outer,
+.mobile .post-outer, .mobile .footer-outer {
+-moz-border-radius: 0;
+-webkit-border-radius: 0;
+-goog-ms-border-radius: 0;
+border-radius: 0;
+}
+.mobile .content-outer,
+.mobile .main-outer,
+.mobile .post-outer {
+background: inherit;
+border: none;
+}
+.mobile .content-outer {
+font-size: 100%;
+}
+.mobile-link-button {
+background-color: #860e0e;
+}
+.mobile-link-button a:link, .mobile-link-button a:visited {
+color: #ffffff;
+}
+.mobile-index-contents {
+color: #000000;
+}
+.mobile .tabs-inner .PageList .widget-content {
+background: #ffffff url(//www.blogblog.com/1kt/transparent/tabs_gradient_shade.png) repeat scroll bottom;
+color: #000000;
+}
+.mobile .tabs-inner .PageList .widget-content .pagelist-arrow {
+border-left: 1px solid #cacaca;
+}
+#jp-table td {
+border-bottom: 1px dashed #A0A0A0;
+font-size: 100%;
+}
+.func_table {
+margin:0px;padding:0px;
+width:100%;/*	box-shadow: 10px 10px 5px #888888;
+border:1px solid #000000;*/
+-moz-border-radius-bottomleft:0px;
+-webkit-border-bottom-left-radius:0px;
+border-bottom-left-radius:0px;
+-moz-border-radius-bottomright:0px;
+-webkit-border-bottom-right-radius:0px;
+border-bottom-right-radius:0px;
+-moz-border-radius-topright:0px;
+-webkit-border-top-right-radius:0px;
+border-top-right-radius:0px;
+-moz-border-radius-topleft:0px;
+-webkit-border-top-left-radius:0px;
+border-top-left-radius:0px;
+}.func_table table{
+width:100%;
+height:100%;
+margin:0px;padding:0px;
+}.func_table tr:last-child td:last-child {
+-moz-border-radius-bottomright:0px;
+-webkit-border-bottom-right-radius:0px;
+border-bottom-right-radius:0px;
+}
+.func_table table tr:first-child td:first-child {
+-moz-border-radius-topleft:0px;
+-webkit-border-top-left-radius:0px;
+border-top-left-radius:0px;
+}
+.func_table table tr:first-child td:last-child {
+-moz-border-radius-topright:0px;
+-webkit-border-top-right-radius:0px;
+border-top-right-radius:0px;
+}.func_table tr:last-child td:first-child{
+-moz-border-radius-bottomleft:0px;
+-webkit-border-bottom-left-radius:0px;
+border-bottom-left-radius:0px;
+}.func_table tr:hover td{
+}.func_table tr:nth-child(odd){ background-color:#e5e5e5; }
+.func_table tr:nth-child(even)    { background-color:#ffffff; }
+.func_table td{/*
+vertical-align:middle;
+border:1px solid #000000;
+border-width:0px 1px 1px 0px;
+text-align:left;
+padding:7px;
+font-size:10px;
+font-family:arial;
+font-weight:normal;
+color:#000000;*/
+}.func_table tr:last-child td{
+border-width:0px 1px 0px 0px;
+}.func_table tr td:last-child{
+border-width:0px 0px 1px 0px;
+}.func_table tr:last-child td:last-child{
+border-width:0px 0px 0px 0px;
+}
+.func_table tr:first-child td{
+/*background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
+background-color:#cccccc;
+border:0px solid #000000;
+text-align:center;
+border-width:0px 0px 1px 1px;
+font-size:14px;
+font-family:arial;
+font-weight:bold;
+color:#000000;*/
+}
+.func_table tr:first-child:hover td{/*
+background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
+background-color:#cccccc;*/
+}
+.func_table tr:first-child td:first-child{
+border-width:0px 0px 1px 0px;
+}
+.func_table tr:first-child td:last-child{
+border-width:0px 0px 1px 1px;
+}
+#td_padding td {
+padding-left:10px;
+padding-right:5px;
+}
+#precedence_table_td td{
+padding:10px;
+}
+--></style>
+<style id="template-skin-1" type="text/css"><!--
+body {
+min-width: 1030px;
+}
+.content-outer, .content-fauxcolumn-outer, .region-inner {
+min-width: 1030px;
+max-width: 1030px;
+_width: 1030px;
+}
+.main-inner .columns {
+padding-left: 0;
+padding-right: 370px;
+}
+.main-inner .fauxcolumn-center-outer {
+left: 0;
+right: 370px;
+/* IE6 does not respect left and right together */
+_width: expression(this.parentNode.offsetWidth -
+parseInt("0") -
+parseInt("370px") + 'px');
+}
+.main-inner .fauxcolumn-left-outer {
+width: 0;
+}
+.main-inner .fauxcolumn-right-outer {
+width: 370px;
+}
+.main-inner .column-left-outer {
+width: 0;
+right: 100%;
+margin-left: -0;
+}
+.main-inner .column-right-outer {
+width: 370px;
+margin-right: -370px;
+}
+#layout {
+min-width: 0;
+}
+#layout .content-outer {
+min-width: 0;
+width: 800px;
+}
+#layout .region-inner {
+min-width: 0;
+width: auto;
+}
+--></style>
+<script type="text/javascript">var a="indexOf",b="&m=1",e="(^|&)m=",f="?",g="?m=1";function h(){var c=window.location.href,d=c.split(f);switch(d.length){case 1:return c+g;case 2:return 0<=d[1].search(e)?null:c+b;default:return null}}var k=navigator.userAgent;if(-1!=k[a]("Mobile")&&-1!=k[a]("WebKit")&&-1==k[a]("iPad")||-1!=k[a]("Opera Mini")||-1!=k[a]("IEMobile")){var l=h();l&&window.location.replace(l)};
+</script><script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script><script src="evaluating-postfix-expression_files/google_top_exp.js" type="text/javascript"></script><style>.gc-bubbleDefault{background-color:transparent !important;text-align:left;padding:0 !important;margin:0 !important;border:0 !important;table-layout:auto !important}.gc-reset{background-color:transparent !important;border:0 !important;padding:0 !important;margin:0 !important;text-align:left}.pls-bubbleTop{border-bottom:1px solid #ccc !important}.pls-topTail,.pls-vertShimLeft,.pls-contentLeft{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/border_3.gif) !important}.pls-topTail{background-repeat:repeat-x !important;background-position:bottom !important}.pls-vertShim{background-color:#fff !important;text-align:right}.tbl-grey .pls-vertShim{background-color:#f5f5f5 !important}.pls-vertShimLeft{background-repeat:repeat-y !important;background-position:right !important;height:4px}.pls-vertShimRight{height:4px}.pls-confirm-container .pls-vertShim{background-color:#fff3c2 !important}.pls-contentWrap{background-color:#fff !important;position:relative !important;vertical-align:top}.pls-contentLeft{background-repeat:repeat-y;background-position:right;vertical-align:top}.pls-dropRight{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropR_3.png) !important;background-repeat:repeat-y !important;vertical-align:top}.pls-vert,.pls-tailleft,.pls-dropTR .pls-dropBR,.pls-dropBL,.pls-vert img{vertical-align:top}.pls-dropBottom{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropB_3.png) !important;background-repeat:repeat-x !important;width:100%;vertical-align:top}.pls-topLeft{background:inherit !important;text-align:right;vertical-align:bottom}.pls-topRight{background:inherit !important;text-align:left;vertical-align:bottom}.pls-bottomLeft{background:inherit !important;text-align:right}.pls-bottomRight{background:inherit !important;text-align:left;vertical-align:top}.pls-tailtop,.pls-tailright,.pls-tailbottom,.pls-tailleft{display:none;position:relative}.pls-tailbottom,.pls-tailtop,.pls-tailright,.pls-tailleft,.pls-dropTR,.pls-dropBR,.pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite_3.png) !important;background-repeat:no-repeat}.tbl-grey .pls-tailbottom,.tbl-grey .pls-tailtop,.tbl-grey .pls-tailright,.tbl-grey .pls-tailleft,.tbl-grey .pls-dropTR,.tbl-grey .pls-dropBR,.tbl-grey .pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite-grey.png) !important}.pls-tailbottom{background-position:-23px 0}.pls-confirm-container .pls-tailbottom{background-position:-23px -10px}.pls-tailtop{background-position:-19px -20px}.pls-tailright{background-position:0 0}.pls-tailleft{background-position:-10px 0}.pls-tailtop{vertical-align:top}.gc-bubbleDefault td{line-height:0;font-size:0}.pls-topLeft img,.pls-topRight img,.pls-tailbottom{vertical-align:bottom}.pls-bottomLeft img,.bubbleDropTR,.pls-dropBottomL img,.pls-dropBottom img,.pls-dropBottomR img,.pls-bottomLeft{vertical-align:top}.pls-dropTR{background-position:0 -22px}.pls-dropBR{background-position:0 -27px}.pls-dropBL{background-position:0 -16px}.pls-spacertop,.pls-spacerright,.pls-spacerbottom,.pls-spacerleft{position:static !important}.pls-spinner{bottom:0;position:absolute;left:0;margin:auto;right:0;top:0}</style><script src="evaluating-postfix-expression_files/a" type="text/javascript"></script></head>
+<body class=" variant-shade">
+<div class="navbar section" id="navbar"><div class="widget Navbar" id="Navbar1"><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener('load',
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<div id="navbar-iframe-container"><iframe src="evaluating-postfix-expression_files/navbar.xhtml" name="navbar-iframe" id="navbar-iframe" vspace="0" tabindex="0" style="" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div>
+<script gapi_processed="true" type="text/javascript" src="evaluating-postfix-expression_files/plusone.js"></script>
+<script type="text/javascript">
+        gapi.load("gapi.iframes:gapi.iframes.style.bubble", function() {
+          if (gapi.iframes && gapi.iframes.getContext) {
+            gapi.iframes.getContext().openChild({
+                url: 'https://www.blogger.com/navbar.g?targetBlogID\0753063941734768192839\46blogName\75C+Programming+For+Dummies\46publishMode\75PUBLISH_MODE_BLOGSPOT\46navbarType\75BLACK\46layoutType\75LAYOUTS\46searchRoot\75http://see-programming.blogspot.com/search\46blogLocale\75en_GB\46v\0752\46homepageUrl\75http://see-programming.blogspot.com/\46targetPostID\0756427305642984282195\46blogPostOrPageUrl\75http://see-programming.blogspot.com/2013/02/evaluating-postfix-expression-using.html\46vt\0751450258224364853630',
+                where: document.getElementById("navbar-iframe-container"),
+                id: "navbar-iframe"
+            });
+          }
+        });
+      </script><script type="text/javascript">
+(function() {
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = '//pagead2.googlesyndication.com/pagead/js/google_top_exp.js';
+var head = document.getElementsByTagName('head')[0];
+if (head) {
+head.appendChild(script);
+}})();
+</script>
+</div></div>
+<div class="body-fauxcolumns">
+<div class="fauxcolumn-outer body-fauxcolumn-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</div>
+<div class="content">
+<div class="content-fauxcolumns">
+<div class="fauxcolumn-outer content-fauxcolumn-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</div>
+<div class="content-outer">
+<div class="content-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left content-fauxborder-left">
+<div class="fauxborder-right content-fauxborder-right"></div>
+<div class="content-inner">
+<header>
+<div class="header-outer">
+<div class="header-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left header-fauxborder-left">
+<div class="fauxborder-right header-fauxborder-right"></div>
+<div class="region-inner header-inner">
+<div class="header section" id="header"><div class="widget Header" id="Header1">
+<div id="header-inner">
+<div class="titlewrapper">
+<h1 class="title">
+<a href="http://see-programming.blogspot.in/">C Programming For Dummies</a>
+</h1>
+</div>
+<div class="descriptionwrapper">
+<p class="description"><span>see-programming is a popular blog that 
+provides information on C programming basics, data structure, advanced 
+unix programming, network programming, basic linux commands, interview 
+question for freshers, video tutorials and essential softwares for 
+students.</span></p>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="header-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</header>
+<div class="tabs-outer">
+<div class="tabs-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left tabs-fauxborder-left">
+<div class="fauxborder-right tabs-fauxborder-right"></div>
+<div class="region-inner tabs-inner">
+<div class="tabs section" id="crosscol"><div class="widget PageList" id="PageList1">
+<h2>Pages</h2>
+<div class="widget-content">
+<ul>
+<li><a href="http://see-programming.blogspot.in/">Home</a></li>
+<li><a href="http://see-programming.blogspot.in/p/c-programs.html">CTutorials</a></li>
+<li><a href="http://see-programming.blogspot.in/p/pointers_20.html">Pointers</a></li>
+<li><a href="http://see-programming.blogspot.in/p/c-programs_5.html">Programs</a></li>
+<li><a href="http://see-programming.blogspot.in/p/c-graphics.html">C Graphics</a></li>
+<li><a href="http://see-programming.blogspot.in/p/data-structures.html">DataStructures</a></li>
+<li><a href="http://see-programming.blogspot.in/p/pointers.html">C Library</a></li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=PageList&amp;widgetId=PageList1&amp;action=editWidget&amp;sectionId=crosscol" onclick='return _WidgetManager._PopupConfig(document.getElementById("PageList1"));' target="configPageList1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+<div class="tabs section" id="crosscol-overflow"></div>
+</div>
+</div>
+<div class="tabs-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<div class="main-outer">
+<div class="main-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left main-fauxborder-left">
+<div class="fauxborder-right main-fauxborder-right"></div>
+<div class="region-inner main-inner">
+<div class="columns fauxcolumns">
+<div class="fauxcolumn-outer fauxcolumn-center-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<div class="fauxcolumn-outer fauxcolumn-left-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<div class="fauxcolumn-outer fauxcolumn-right-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<!-- corrects IE6 width calculation -->
+<div class="columns-inner">
+<div class="column-center-outer">
+<div class="column-center-inner">
+<div class="main section" id="main"><div id="uds-searchControl"><a name="uds-search-results"></a><div id="uds-searchResults"></div><div class="gsc-clear-button" id="uds-searchClearResults">&nbsp;</div></div><div class="widget Blog" id="Blog1">
+<div class="blog-posts hfeed">
+<!-- google_ad_section_start(name=default) -->
+
+          <div class="date-outer">
+        
+<h2 class="date-header"><span>Thursday, 28 February 2013</span></h2>
+
+          <div class="date-posts">
+        
+<div class="post-outer">
+<div class="post hentry">
+<a name="6427305642984282195"></a>
+<h3 class="post-title entry-title">
+C Program To Evaluate Postfix Expression Using Array
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-6427305642984282195">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<b><span style="color: #660000; font-family: Trebuchet MS, sans-serif;">See Also:</span></b><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.com/2013/05/postfix-to-infix-conversion.html" target="_blank">C Program To Implement Postfix To Infix Conversion</a></span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.in/2013/05/postfix-to-prefix-conversion.html" target="_blank">C Program To Implement Postfix To Prefix Conversion</a></span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.in/2013/02/infix-to-prefix-conversion.html" target="_blank">C Program To Implement Infix To Prefix Conversion</a></span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.in/2013/02/infix-to-postfix-conversion.html" target="_blank">C Program To Implement Infix To Postfix Conversion</a></span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.com/2013/02/evaluating-postfix-expressions.html" target="_blank">How To Evaluate Postfix Expressions</a></span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.com/2013/02/evaluating-postfix-expression-using.html" target="_blank">C Program To Evaluate Postfix Expression Using Array</a></span><br>
+<span style="font-family: 'Trebuchet MS', sans-serif;"><a href="http://see-programming.blogspot.com/2013/02/evaluating-postfix-expression-using_27.html" target="_blank">C Program To Evaluate Postfix Expression Using Linked List</a></span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.in/2013/02/balancing-expressions.html" target="_blank">How To Balance The Given Expressions</a></span><br>
+<a href="http://see-programming.blogspot.com/2013/02/balancing-expressions-using-array.html" style="font-family: 'Trebuchet MS',sans-serif;" target="_blank">C Program For Balancing Expressions Using Array</a><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><a href="http://see-programming.blogspot.in/2013/02/balancing-expressing-using-linked-list.html" target="_blank">C Program For Balancing Expressions Using Linked List</a></span><br>
+<div>
+<br></div>
+<div>
+<br></div>
+<b><span style="color: #660000; font-family: Trebuchet MS, sans-serif;">C Program For Evaluating Postfix Expression Using Array(Stack):</span></b></div>
+<hr style="border: 2px solid rgb(0, 0, 0); color: #660000; font-family: &quot;Trebuchet MS&quot;,sans-serif;">
+<br>
+<div style="background-color: #d5a6bd;">
+<div style="font-family: 'Trebuchet MS', sans-serif;">
+<br></div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; #include &lt;stdio.h&gt;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; #include &lt;string.h&gt;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><br></span>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; int top = -1;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; int stack[100];</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><br></span>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; /* push the given data into the stack */</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; void push (int data) {</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; stack[++top] = data;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; }</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;"><br></span>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; /* Pop the top element from the stack */</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; int pop () {</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; int data;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; if (top == -1)</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -1;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; data = stack[top];</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; stack[top] = 0;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; top--;</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; return (data);</span><br>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; }</span><br>
+<div style="font-family: 'Trebuchet MS', sans-serif;">
+<br></div>
+<div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; int main() {</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; char str[100];</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; int i, data = -1, operand1, operand2, result;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; /* Get the postfix expression from the user */</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; printf("Enter ur postfix expression:");</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; fgets(str, 100, stdin);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; for (i = 0; i &lt; strlen(str); i++) {</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (isdigit(str[i])) {</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* if the i/p char is digit, parse</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* character by character to get</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* complete operand</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data = (data == -1) ? 0 : data;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data = (data * 10) + (str[i] - 48);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; continue;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;"><br></span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (data != -1) {</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*
+ if the i/p is operand, push it into the stack */</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; push(data);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></div>
+<div style="font-family: 'Trebuchet MS', sans-serif;">
+<br></div>
+</div>
+<div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (str[i] == '+' || str[i] == '-'</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; || str[i] == '*' || str[i] == '/') {</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp;* if the i/p is an operator, pop 2 elements</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp;* from the stack and apply the operator</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; operand2 = pop();</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; operand1 = pop();</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (operand1 == -1 || operand2 == -1)</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; switch (str[i]) {</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; case '+':</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; result = 
+operand1 + operand2;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* push the 
+result into the stack */</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; push(result);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; case '-':</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; result = 
+operand1 - operand2;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; push(result);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; case '*':</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; result = 
+operand1 * operand2;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; push(result);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; case '/':</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; result = 
+operand1 / operand2;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; push(result);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data = -1;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; }</span></div>
+<div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; if (top == 0)</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; printf("Output:%d\n", stack[top]);</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; else</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; printf("u have given wrong postfix expression\n");</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; return 0;</span></div>
+<div>
+<span style="font-family: Trebuchet MS, sans-serif;">&nbsp; }</span></div>
+<div style="font-family: 'Trebuchet MS', sans-serif;">
+<br></div>
+</div>
+</div>
+</div>
+<br>
+<br>
+<div style="background-color: #999999; color: white; font-family: &quot;Trebuchet MS&quot;,sans-serif;">
+<b>&nbsp; Output: (Evaluating Postfix Expression Using Array - Example Program)</b></div>
+<div style="background-color: black;">
+<span style="color: white; font-family: Trebuchet MS, sans-serif;">&nbsp; jp@jp-VirtualBox:$ ./a.out</span><br>
+<span style="color: white; font-family: Trebuchet MS, sans-serif;">&nbsp; Enter ur postfix expression:10 20 * 30 40 10 /-+&nbsp;</span><br>
+<span style="color: white; font-family: Trebuchet MS, sans-serif;">&nbsp; Output:226</span><br>
+<div style="color: white; font-family: 'Trebuchet MS', sans-serif;">
+<br></div>
+</div>
+<br>
+<br></div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1"><span class="post-author vcard">
+Posted by
+<span class="fn">
+<a href="http://www.blogger.com/profile/17633481395209852801" rel="author" title="author profile">
+CProgrammer
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+at
+<a class="timestamp-link" href="http://see-programming.blogspot.in/2013/02/evaluating-postfix-expression-using.html" rel="bookmark" title="permanent link"><abbr class="published" title="2013-02-28T08:09:00+05:30">08:09</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+<span class="post-icons">
+<span class="item-control blog-admin pid-2082359674">
+<a href="http://www.blogger.com/post-edit.g?blogID=3063941734768192839&amp;postID=6427305642984282195&amp;from=pencil" title="Edit Post">
+<img alt="" class="icon-action" src="evaluating-postfix-expression_files/icon18_edit_allbkg.gif" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="post-share-buttons goog-inline-block">
+<a class="goog-inline-block share-button sb-email" href="http://www.blogger.com/share-post.g?blogID=3063941734768192839&amp;postID=6427305642984282195&amp;target=email" target="_blank" title="Email This"><span class="share-button-link-text">Email This</span></a><a class="goog-inline-block share-button sb-blog" href="http://www.blogger.com/share-post.g?blogID=3063941734768192839&amp;postID=6427305642984282195&amp;target=blog" onclick='window.open(this.href, "_blank", "height=270,width=475"); return false;' target="_blank" title="BlogThis!"><span class="share-button-link-text">BlogThis!</span></a><a class="goog-inline-block share-button sb-twitter" href="http://www.blogger.com/share-post.g?blogID=3063941734768192839&amp;postID=6427305642984282195&amp;target=twitter" target="_blank" title="Share to Twitter"><span class="share-button-link-text">Share to Twitter</span></a><a class="goog-inline-block share-button sb-facebook" href="http://www.blogger.com/share-post.g?blogID=3063941734768192839&amp;postID=6427305642984282195&amp;target=facebook" onclick='window.open(this.href, "_blank", "height=430,width=640"); return false;' target="_blank" title="Share to Facebook"><span class="share-button-link-text">Share to Facebook</span></a><div class="goog-inline-block dummy-container"><div id="___plusone_0" style="position: absolute; width: 450px; left: -10000px;"><iframe data-gapiattached="true" src="evaluating-postfix-expression_files/fastbutton.xhtml" name="I0_1390914370945" id="I0_1390914370945" vspace="0" tabindex="0" style="position: absolute; top: -10000px; width: 450px; margin: 0px; border-style: none;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div><g:plusone data-gapistub="true" data-onload="true" data-gapiscan="true" source="blogger:blog:plusone" href="http://see-programming.blogspot.com/2013/02/evaluating-postfix-expression-using.html" size="medium" width="300" annotation="inline"></g:plusone></div>
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2"><span class="post-labels">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-3"><span class="post-location">
+</span>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>No comments:</h4>
+<div id="Blog1_comments-block-wrapper">
+<dl class="avatar-comment-indent" id="comments-block">
+</dl>
+</div>
+<p class="comment-footer">
+</p><div class="comment-form">
+<a name="comment-form"></a>
+<h4 id="comment-post-message">Post a Comment</h4>
+<p>
+</p>
+<a href="https://www.blogger.com/comment-iframe.g?blogID=3063941734768192839&amp;postID=6427305642984282195&amp;blogspotRpcToken=381971" id="comment-editor-src"></a>
+<iframe allowtransparency="true" class="blogger-iframe-colorize blogger-comment-from-post" id="comment-editor" name="comment-editor" src="evaluating-postfix-expression_files/comment-iframe.xhtml" frameborder="0" height="410" width="100%"></iframe>
+<script type="text/javascript" src="evaluating-postfix-expression_files/3121195295-comment_from_post_iframe.js"></script>
+<script type="text/javascript">
+      BLOG_CMT_createIframe('https://www.blogger.com/rpc_relay.html', '11287475966297204558');
+    </script>
+</div>
+<p></p>
+<div id="backlinks-container">
+<div id="Blog1_backlinks-container">
+</div>
+</div>
+</div>
+</div>
+
+        </div></div>
+      
+<!-- google_ad_section_end -->
+</div>
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="http://see-programming.blogspot.in/2013/02/evaluating-postfix-expression-using_27.html" id="Blog1_blog-pager-newer-link" title="Newer Post">Newer Post</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="http://see-programming.blogspot.in/2013/02/evaluating-postfix-expressions.html" id="Blog1_blog-pager-older-link" title="Older Post">Older Post</a>
+</span>
+<a class="home-link" href="http://see-programming.blogspot.in/">Home</a>
+</div>
+<div class="clear"></div>
+<div class="post-feeds">
+<div class="feed-links">
+Subscribe to:
+<a class="feed-link" href="http://see-programming.blogspot.com/feeds/6427305642984282195/comments/default" target="_blank" type="application/atom+xml">Post Comments (Atom)</a>
+</div>
+</div>
+<script type="text/javascript">window.___gcfg = {'lang': 'en_GB'};</script>
+</div></div>
+</div>
+</div>
+<div class="column-left-outer">
+<div class="column-left-inner">
+<aside>
+</aside>
+</div>
+</div>
+<div class="column-right-outer">
+<div class="column-right-inner">
+<aside>
+<div class="sidebar section" id="sidebar-right-1"><div class="widget CustomSearch" id="CustomSearch1">
+<h2 class="title">Search This Blog</h2>
+<div class="widget-content">
+<div id="CustomSearch1_form">
+<span class="cse-status">Loading...</span>
+</div>
+</div>
+<style type="text/css">
+      #uds-searchControl .gs-result .gs-title,
+      #uds-searchControl .gs-result .gs-title *,
+      #uds-searchControl .gsc-results .gsc-trailing-more-results,
+      #uds-searchControl .gsc-results .gsc-trailing-more-results * {
+        color:#860e0e;
+      }
+
+      #uds-searchControl .gs-result .gs-title a:visited,
+      #uds-searchControl .gs-result .gs-title a:visited * {
+        color:#2c0000;
+      }
+
+      #uds-searchControl .gs-relativePublishedDate,
+      #uds-searchControl .gs-publishedDate {
+        color: #6f6f6f;
+      }
+
+      #uds-searchControl .gs-result a.gs-visibleUrl,
+      #uds-searchControl .gs-result .gs-visibleUrl {
+        color: #860e0e;
+      }
+
+      #uds-searchControl .gsc-results {
+        border-color: #dbdbdb;
+        background-color: #ffffff;
+      }
+
+      #uds-searchControl .gsc-tabhActive {
+        border-color: #dbdbdb;
+        border-top-color: #dbdbdb;
+        background-color: #ffffff;
+        color: #000000;
+      }
+
+      #uds-searchControl .gsc-tabhInactive {
+        border-color: #dbdbdb;
+        background-color: transparent;
+        color: #860e0e;
+      }
+
+      #uds-searchClearResults {
+        border-color: #dbdbdb;
+      }
+
+      #uds-searchClearResults:hover {
+        border-color: #dbdbdb;
+      }
+
+      #uds-searchControl .gsc-cursor-page {
+        color: #860e0e;
+      }
+
+      #uds-searchControl .gsc-cursor-current-page {
+        color: #000000;
+      }
+    </style>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=CustomSearch&amp;widgetId=CustomSearch1&amp;action=editWidget&amp;sectionId=sidebar-right-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("CustomSearch1"));' target="configCustomSearch1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" id="HTML1">
+<div class="widget-content">
+<iframe src="evaluating-postfix-expression_files/displayWidget.xhtml" frameborder="0" height="250" width="300"></iframe>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=HTML&amp;widgetId=HTML1&amp;action=editWidget&amp;sectionId=sidebar-right-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target="configHTML1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget FollowByEmail" id="FollowByEmail1">
+<h2 class="title">Subscribe</h2>
+<div class="widget-content">
+<div class="follow-by-email-inner">
+<form action="http://feedburner.google.com/fb/a/mailverify" method="post" onsubmit='window.open("http://feedburner.google.com/fb/a/mailverify?uri=CProgrammingForDummies", "popupwindow", "scrollbars=yes,width=550,height=520"); return true' target="popupwindow">
+<table width="100%">
+<tbody><tr>
+<td>
+<input class="follow-by-email-address" name="email" placeholder="Email address..." style="height: 17px;" type="text">
+</td>
+<td width="64px">
+<input class="follow-by-email-submit" value="Submit" type="submit">
+</td>
+</tr>
+</tbody></table>
+<input name="uri" value="CProgrammingForDummies" type="hidden">
+<input name="loc" value="en_US" type="hidden">
+</form>
+</div>
+</div>
+<span class="item-control blog-admin">
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=FollowByEmail&amp;widgetId=FollowByEmail1&amp;action=editWidget&amp;sectionId=sidebar-right-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("FollowByEmail1"));' target="configFollowByEmail1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</span>
+</div><div class="widget HTML" id="HTML3">
+<div class="widget-content">
+<iframe src="evaluating-postfix-expression_files/displayWidget_002.xhtml" frameborder="0" height="250" width="300"></iframe>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=HTML&amp;widgetId=HTML3&amp;action=editWidget&amp;sectionId=sidebar-right-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML3"));' target="configHTML3" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" id="HTML2">
+<h2 class="title">Animation Using C Graphics</h2>
+<div class="widget-content">
+<div>
+<marquee behaviour="scroll" direction="up" onmouseover="this.stop();" onmouseout="this.start();">
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/10/analog-clock-in-c-simplified.html">Analog clock </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/c-program-to-implement-digital-clock.html">Digital Clock</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/solar-system-animation-using-c-graphics.html">Solar System </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-fish-using-c-graphics.html">Moving Fish Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/04/tic-tac-toe-game-in-c.html">Tic Tac Toe Game </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-moving-car-using-c-graphics.html">Moving Car animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/twinkle-star-animation-using-c-graphics.html">Twinkle Star Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/walking-stickman-animation-using-c.html">Walking Stick Man Animation </a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/animate-parachute-using-c-graphics.html">Paragliding Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Vertical Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/vertical-bar-chart-animation-using-c.html">Horizontal Bar chart Animation</a><br><br>
+<a href="http://see-programming.blogspot.com/2013/09/pie-chart-animation-using-c-graphics.html">Pie Chart</a><br><br>
+</marquee>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=HTML&amp;widgetId=HTML2&amp;action=editWidget&amp;sectionId=sidebar-right-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target="configHTML2" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div></div>
+<table class="section-columns columns-2" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="first columns-cell">
+<div class="sidebar section" id="sidebar-right-2-1"><div class="widget BlogArchive" id="BlogArchive1">
+<h2>Blog Archive</h2>
+<div class="widget-content">
+<div id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<select id="BlogArchive1_ArchiveMenu">
+<option selected="selected" value="">Blog Archive</option>
+<option value="http://see-programming.blogspot.in/2014_01_01_archive.html">January (12)</option>
+<option value="http://see-programming.blogspot.in/2013_12_01_archive.html">December (32)</option>
+<option value="http://see-programming.blogspot.in/2013_11_01_archive.html">November (10)</option>
+<option value="http://see-programming.blogspot.in/2013_10_01_archive.html">October (15)</option>
+<option value="http://see-programming.blogspot.in/2013_09_01_archive.html">September (119)</option>
+<option value="http://see-programming.blogspot.in/2013_08_01_archive.html">August (6)</option>
+<option value="http://see-programming.blogspot.in/2013_07_01_archive.html">July (363)</option>
+<option value="http://see-programming.blogspot.in/2013_06_01_archive.html">June (126)</option>
+<option value="http://see-programming.blogspot.in/2013_05_01_archive.html">May (34)</option>
+<option value="http://see-programming.blogspot.in/2013_04_01_archive.html">April (1)</option>
+<option value="http://see-programming.blogspot.in/2013_03_01_archive.html">March (7)</option>
+<option value="http://see-programming.blogspot.in/2013_02_01_archive.html">February (35)</option>
+<option value="http://see-programming.blogspot.in/2012_06_01_archive.html">June (4)</option>
+<option value="http://see-programming.blogspot.in/2012_05_01_archive.html">May (58)</option>
+<option value="http://see-programming.blogspot.in/2012_04_01_archive.html">April (125)</option>
+<option value="http://see-programming.blogspot.in/2012_03_01_archive.html">March (46)</option>
+</select>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=BlogArchive&amp;widgetId=BlogArchive1&amp;action=editWidget&amp;sectionId=sidebar-right-2-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target="configBlogArchive1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget Label" id="Label3">
+<h2>Libraries</h2>
+<div class="widget-content list-label-widget-content">
+<ul>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/assert.h">assert.h</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/ctype.h">ctype.h</a>
+<span dir="ltr">(13)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/execinfo.h">execinfo.h</a>
+<span dir="ltr">(3)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/getopt.h">getopt.h</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/math.h">math.h</a>
+<span dir="ltr">(22)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/setjmp.h">setjmp.h</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/signal.h">signal.h</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/stdarg.h">stdarg.h</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/stdio.h">stdio.h</a>
+<span dir="ltr">(41)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/stdlib.h">stdlib.h</a>
+<span dir="ltr">(23)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/string.h">string.h</a>
+<span dir="ltr">(20)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/time.h">time.h</a>
+<span dir="ltr">(9)</span>
+</li>
+<li>
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/unistd.h">unistd.h</a>
+<span dir="ltr">(1)</span>
+</li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=Label&amp;widgetId=Label3&amp;action=editWidget&amp;sectionId=sidebar-right-2-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("Label3"));' target="configLabel3" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+</td>
+<td class="columns-cell">
+<div class="sidebar section" id="sidebar-right-2-2"><div class="widget Stats" id="Stats1">
+<h2>Pageviews</h2>
+<div class="widget-content">
+<div id="Stats1_content" style="display: none;">
+<span class="counter-wrapper graph-counter-wrapper" id="Stats1_totalCount"></span>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=Stats&amp;widgetId=Stats1&amp;action=editWidget&amp;sectionId=sidebar-right-2-2" onclick='return _WidgetManager._PopupConfig(document.getElementById("Stats1"));' target="configStats1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div>
+</div></div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sidebar section" id="sidebar-right-3"></div>
+</aside>
+</div>
+</div>
+</div>
+<div style="clear: both"></div>
+<!-- columns -->
+</div>
+<!-- main -->
+</div>
+</div>
+<div class="main-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<footer>
+<div class="footer-outer">
+<div class="footer-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left footer-fauxborder-left">
+<div class="fauxborder-right footer-fauxborder-right"></div>
+<div class="region-inner footer-inner">
+<div class="foot section" id="footer-1"><div class="widget Label" id="Label1">
+<h2>My Blog Contents</h2>
+<div class="widget-content cloud-label-widget-content">
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Arrays%20Programs">Arrays Programs</a>
+<span class="label-count" dir="ltr">(78)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/assert.h">assert.h</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Basic%20C%20Programs">Basic C Programs</a>
+<span class="label-count" dir="ltr">(77)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/C%20Graphics">C Graphics</a>
+<span class="label-count" dir="ltr">(44)</span>
+</span>
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/C%20Library">C Library</a>
+<span class="label-count" dir="ltr">(127)</span>
+</span>
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/C%20Tutorials">C Tutorials</a>
+<span class="label-count" dir="ltr">(108)</span>
+</span>
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/control%20flow%20programs">control flow programs</a>
+<span class="label-count" dir="ltr">(71)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Conversions">Conversions</a>
+<span class="label-count" dir="ltr">(34)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/ctype.h">ctype.h</a>
+<span class="label-count" dir="ltr">(13)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/execinfo.h">execinfo.h</a>
+<span class="label-count" dir="ltr">(3)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/faqs">faqs</a>
+<span class="label-count" dir="ltr">(3)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/File%20Programs">File Programs</a>
+<span class="label-count" dir="ltr">(43)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Function%20programs">Function programs</a>
+<span class="label-count" dir="ltr">(15)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/getopt.h">getopt.h</a>
+<span class="label-count" dir="ltr">(2)</span>
+</span>
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/graphics.h">graphics.h</a>
+<span class="label-count" dir="ltr">(78)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Logical%20operator%20programs">Logical operator programs</a>
+<span class="label-count" dir="ltr">(17)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/macros%20programs">macros programs</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/math.h">math.h</a>
+<span class="label-count" dir="ltr">(22)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Pointer%20Programs">Pointer Programs</a>
+<span class="label-count" dir="ltr">(22)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/pointers">pointers</a>
+<span class="label-count" dir="ltr">(34)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/recursion">recursion</a>
+<span class="label-count" dir="ltr">(29)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/series%20programs">series programs</a>
+<span class="label-count" dir="ltr">(31)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/setjmp.h">setjmp.h</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/signal.h">signal.h</a>
+<span class="label-count" dir="ltr">(2)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/stdarg.h">stdarg.h</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/stdio.h">stdio.h</a>
+<span class="label-count" dir="ltr">(41)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/stdlib.h">stdlib.h</a>
+<span class="label-count" dir="ltr">(23)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/string.h">string.h</a>
+<span class="label-count" dir="ltr">(20)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Strings">Strings</a>
+<span class="label-count" dir="ltr">(63)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/Structure%20programs">Structure programs</a>
+<span class="label-count" dir="ltr">(10)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/time.h">time.h</a>
+<span class="label-count" dir="ltr">(9)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://see-programming.blogspot.in/search/label/unistd.h">unistd.h</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=Label&amp;widgetId=Label1&amp;action=editWidget&amp;sectionId=footer-1" onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' target="configLabel1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+<table class="section-columns columns-2" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="first columns-cell">
+<div class="foot section" id="footer-2-1"></div>
+</td>
+<td class="columns-cell">
+<div class="foot section" id="footer-2-2"></div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- outside of the include in order to lock Attribution widget -->
+<div class="foot section" id="footer-3"><div class="widget Attribution" id="Attribution1">
+<div class="widget-content" style="text-align: center;">
+CProgrammer. Picture Window template. Template images by <a href="http://www.istockphoto.com/googleimages.php?id=10989085&amp;platform=blogger&amp;langregion=en_GB" target="_blank">merrymoonmary</a>. Powered by <a href="http://www.blogger.com/" target="_blank">Blogger</a>.
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=3063941734768192839&amp;widgetType=Attribution&amp;widgetId=Attribution1&amp;action=editWidget&amp;sectionId=footer-3" onclick='return _WidgetManager._PopupConfig(document.getElementById("Attribution1"));' target="configAttribution1" title="Edit">
+<img alt="" src="evaluating-postfix-expression_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div></div>
+</div>
+</div>
+<div class="footer-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</footer>
+<!-- content -->
+</div>
+</div>
+<div class="content-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    window.setTimeout(function() {
+        document.body.className = document.body.className.replace('loading', '');
+      }, 10);
+  </script>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="evaluating-postfix-expression_files/2221937197-widgets.js"></script>
+<script gapi_processed="true" type="text/javascript" src="evaluating-postfix-expression_files/plusone.js"></script><iframe src="evaluating-postfix-expression_files/blank.html" style="height: 0pt; width: 0pt; position: absolute;" name="google_top_static_frame" id="google_top_static_frame" frameborder="0"></iframe>
+<script type="text/javascript" src="evaluating-postfix-expression_files/jsapi"></script>
+<script type="text/javascript">
+if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) { window['blogger_templates_experiment_id'] = "templatesV2";window['blogger_blog_id'] = '3063941734768192839';BLOG_attachCsiOnload('item_'); }_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d3063941734768192839','//see-programming.blogspot.in/2013/02/evaluating-postfix-expression-using.html','3063941734768192839');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '3063941734768192839', 'bloggerUrl': 'http://www.blogger.com', 'title': 'C Programming For Dummies', 'pageType': 'item', 'url': 'http://see-programming.blogspot.in/2013/02/evaluating-postfix-expression-using.html', 'canonicalUrl': 'http://see-programming.blogspot.com/2013/02/evaluating-postfix-expression-using.html', 'canonicalHomepageUrl': 'http://see-programming.blogspot.com/', 'homepageUrl': 'http://see-programming.blogspot.in/', 'blogspotFaviconUrl': 'http://see-programming.blogspot.in/favicon.ico', 'enabledCommentProfileImages': true, 'adultContent': false, 'disableAdSenseWidget': false, 'analyticsAccountNumber': '', 'searchLabel': '', 'searchQuery': '', 'pageName': 'C Program To Evaluate Postfix Expression Using Array', 'pageTitle': 'C Programming For Dummies: C Program To Evaluate Postfix Expression Using Array', 'metaDescription': '', 'encoding': 'UTF-8', 'locale': 'en_GB', 'localeUnderscoreDelimited': 'en_gb', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42C Programming For Dummies - Atom\42 href\75\42http://see-programming.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42C Programming For Dummies - RSS\42 href\75\42http://see-programming.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42C Programming For Dummies - Atom\42 href\75\42http://www.blogger.com/feeds/3063941734768192839/posts/default\42 /\76\n\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42C Programming For Dummies - Atom\42 href\75\42http://see-programming.blogspot.com/feeds/6427305642984282195/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'imageSrcTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var b\75window,f\75\42chrome\42,g\75\42jstiming\42,k\75\42tick\42;(function(){function d(a){this.t\75{};this.tick\75function(a,d,c){var e\75void 0!\75c?c:(new Date).getTime();this.t[a]\75[e,d];if(void 0\75\75c)try{b.console.timeStamp(\42CSI/\42+a)}catch(h){}};this[k](\42start\42,null,a)}var a;b.performance\46\46(a\75b.performance.timing);var n\75a?new d(a.responseStart):new d;b.jstiming\75{Timer:d,load:n};if(a){var c\75a.navigationStart,h\75a.responseStart;0\74c\46\46h\76\75c\46\46(b[g].srt\75h-c)}if(a){var e\75b[g].load;0\74c\46\46h\76\75c\46\46(e[k](\42_wtsrt\42,void 0,c),e[k](\42wtsrt_\42,\42_wtsrt\42,h),e[k](\42tbsd_\42,\42wtsrt_\42))}try{a\75null,\nb[f]\46\46b[f].csi\46\46(a\75Math.floor(b[f].csi().pageT),e\46\0460\74c\46\46(e[k](\42_tbnd\42,void 0,b[f].csi().startE),e[k](\42tbnd_\42,\42_tbnd\42,c))),null\75\75a\46\46b.gtbExternal\46\46(a\75b.gtbExternal.pageT()),null\75\75a\46\46b.external\46\46(a\75b.external.pageT,e\46\0460\74c\46\46(e[k](\42_tbnd\42,void 0,b.external.startE),e[k](\42tbnd_\42,\42_tbnd\42,c))),a\46\46(b[g].pt\75a)}catch(p){}})();b.tickAboveFold\75function(d){var a\0750;if(d.offsetParent){do a+\75d.offsetTop;while(d\75d.offsetParent)}d\75a;750\76\75d\46\46b[g].load[k](\42aft\42)};var l\75!1;function m(){l||(l\75!0,b[g].load[k](\42firstScrollTime\42))}b.addEventListener?b.addEventListener(\42scroll\42,m,!1):b.attachEvent(\42onscroll\42,m);\n })();\74/script\076', 'mobileHeadScript': '', 'ieCssRetrofitLinks': '\74!--[if IE]\76\74script type\75\42text/javascript\42 src\75\42https://www.blogger.com/static/v1/jsbin/850967532-ieretrofit.js\42\76\74/script\76\n\74![endif]--\076', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/d6f37bb30c327165', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'testHtml5CssSrc': 'https://www.blogger.com/static/v1/widgets/3640646893-css_bundle_html5.css', 'sf': 'n', 'tf': ''}}, {'name': 'skin', 'data': {'vars': {'content_padding': '15px', 'tabs_selected_background_color': '#ffffff', 'region_shadow_spread': '0', 'header_padding': '30px', 'tab_selected_background_gradient': 'url(//www.blogblog.com/1kt/transparent/tabs_gradient_shade.png)', 'link_visited_color': '#2c0000', 'tabs_margin_sides': '0', 'post_title_font': 'normal normal 18px Arial, Tahoma, Helvetica, FreeSans, sans-serif', 'tabs_separator_color': '#cacaca', 'tabs_text_color': '#860e0e', 'header_background_gradient': 'url(//www.blogblog.com/1kt/transparent/header_gradient_shade.png)', 'widget_title_font': 'bold normal 13px Arial, Tahoma, Helvetica, FreeSans, sans-serif', 'body_background': '#fbb1b2 url(//themes.googleusercontent.com/image?id\0751IgO1wWgj0K_rUZAoQza9BXyXF8I_PEFrP-DP9u0fUqePLlRNOTLtrSyYQglz9OZfPNqD) repeat fixed top center /* Credit: merrymoonmary (http://www.istockphoto.com/googleimages.php?id\07510989085\46platform\75blogger) */', 'tab_first_border_radius': '10px', 'tabs_border_radius': '10px', 'keycolor': '#631515', 'content_shadow_spread': '3px', 'main_background': 'transparent none repeat scroll top center', 'header_font': 'normal normal 36px Arial, Tahoma, Helvetica, FreeSans, sans-serif', 'footer_background': 'transparent url(//www.blogblog.com/1kt/transparent/black50.png) repeat scroll top left', 'header_background_color': '#860e0e', 'widget_title_text_transform': 'uppercase', 'footer_link_visited_color': '#cac496', 'footer_link_hover_color': '#ffffff', 'footer_border_radius_bottom': '10px', 'tabs_background_gradient': 'url(//www.blogblog.com/1kt/transparent/tabs_gradient_shade.png)', 'tab_background': 'transparent none no-repeat scroll top left', 'mobile_background_overlay': 'transparent none repeat scroll top left', 'tabs_background_color': '#f3f3f3', 'header_border_radius': '10px', 'post_margin_sides': '-20px', 'link_hover_color': '#c12a10', 'footer_link_color': '#fffada', 'content_background': 'transparent url(//www.blogblog.com/1kt/transparent/white80.png) repeat scroll top left', 'tabs_margin_bottom': '0', 'body_text_color': '#000000', 'main_padding_sides': '5px', 'post_border_color': '#dbdbdb', 'footer_text_color': '#ececec', 'footer_border_radius_top': '10px', 'post_background_color': '#ffffff', 'content_border_radius': '15px', 'endSide': 'right', 'post_footer_text_color': '#969696', 'startSide': 'left', 'date_header_color': '#000000', 'tabs_font': 'normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif', 'body_font': 'normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif', 'post_border_radius': '10px', 'widget_title_text_color': '#5f5f5f', 'content_margin': '30px', 'link_color': '#860e0e', 'footer_widget_title_text_color': '#b9b9b9', 'header_text_color': '#ffffff', 'main_border_radius_top': '0', 'region_shadow_offset': '0', 'tab_border_radius': '0', 'tabs_selected_text_color': '#000000', 'body_background_color': '#dbdbdb', 'tabs_spacing': '0'}, 'override': '#jp-table td {\nborder-bottom: 1px dashed #A0A0A0;\nfont-size: 100%;\n}\n\n.func_table {\nmargin:0px;padding:0px;\nwidth:100%;/*	box-shadow: 10px 10px 5px #888888;\nborder:1px solid #000000;*/\n\n-moz-border-radius-bottomleft:0px;\n-webkit-border-bottom-left-radius:0px;\nborder-bottom-left-radius:0px;\n\n-moz-border-radius-bottomright:0px;\n-webkit-border-bottom-right-radius:0px;\nborder-bottom-right-radius:0px;\n\n-moz-border-radius-topright:0px;\n-webkit-border-top-right-radius:0px;\nborder-top-right-radius:0px;\n\n-moz-border-radius-topleft:0px;\n-webkit-border-top-left-radius:0px;\nborder-top-left-radius:0px;\n}.func_table table{\nwidth:100%;\nheight:100%;\nmargin:0px;padding:0px;\n}.func_table tr:last-child td:last-child {\n-moz-border-radius-bottomright:0px;\n-webkit-border-bottom-right-radius:0px;\nborder-bottom-right-radius:0px;\n}\n.func_table table tr:first-child td:first-child {\n-moz-border-radius-topleft:0px;\n-webkit-border-top-left-radius:0px;\nborder-top-left-radius:0px;\n}\n.func_table table tr:first-child td:last-child {\n-moz-border-radius-topright:0px;\n-webkit-border-top-right-radius:0px;\nborder-top-right-radius:0px;\n}.func_table tr:last-child td:first-child{\n-moz-border-radius-bottomleft:0px;\n-webkit-border-bottom-left-radius:0px;\nborder-bottom-left-radius:0px;\n}.func_table tr:hover td{\n\n}.func_table tr:nth-child(odd){ background-color:#e5e5e5; }\n.func_table tr:nth-child(even)    { background-color:#ffffff; }\n.func_table td{/*\nvertical-align:middle;\n\n\nborder:1px solid #000000;\nborder-width:0px 1px 1px 0px;\ntext-align:left;\npadding:7px;\nfont-size:10px;\nfont-family:arial;\nfont-weight:normal;\ncolor:#000000;*/\n}.func_table tr:last-child td{\nborder-width:0px 1px 0px 0px;\n}.func_table tr td:last-child{\nborder-width:0px 0px 1px 0px;\n}.func_table tr:last-child td:last-child{\nborder-width:0px 0px 0px 0px;\n}\n.func_table tr:first-child td{\n	/*background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr\75\42#cccccc\42, endColorstr\75\42#b2b2b2\42);	background: -o-linear-gradient(top,#cccccc,b2b2b2);\nbackground-color:#cccccc;\nborder:0px solid #000000;\ntext-align:center;\nborder-width:0px 0px 1px 1px;\nfont-size:14px;\nfont-family:arial;\nfont-weight:bold;\ncolor:#000000;*/\n}\n.func_table tr:first-child:hover td{/*\n	background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr\75\42#cccccc\42, endColorstr\75\42#b2b2b2\42);	background: -o-linear-gradient(top,#cccccc,b2b2b2);\nbackground-color:#cccccc;*/\n}\n.func_table tr:first-child td:first-child{\nborder-width:0px 0px 1px 0px;\n}\n.func_table tr:first-child td:last-child{\nborder-width:0px 0px 1px 1px;\n}\n#td_padding td {\npadding-left:10px;\npadding-right:5px;\n}\n#precedence_table_td td{\npadding:10px;\n}'}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '/?view\75classic'}, 'flipcard': {'name': 'flipcard', 'url': '/?view\75flipcard'}, 'magazine': {'name': 'magazine', 'url': '/?view\75magazine'}, 'mosaic': {'name': 'mosaic', 'url': '/?view\75mosaic'}, 'sidebar': {'name': 'sidebar', 'url': '/?view\75sidebar'}, 'snapshot': {'name': 'snapshot', 'url': '/?view\75snapshot'}, 'timeslide': {'name': 'timeslide', 'url': '/?view\75timeslide'}}}]);
+_WidgetManager._RegisterWidget('_PageListView', new _WidgetInfo('PageList1', 'crosscol', null, document.getElementById('PageList1'), {'title': 'Pages', 'links': [{'href': 'http://see-programming.blogspot.in/', 'title': 'Home', 'isCurrentPage': false}, {'href': 'http://see-programming.blogspot.in/p/c-programs.html', 'title': 'CTutorials', 'isCurrentPage': false}, {'href': 'http://see-programming.blogspot.in/p/pointers_20.html', 'title': 'Pointers', 'isCurrentPage': false}, {'href': 'http://see-programming.blogspot.in/p/c-programs_5.html', 'title': 'Programs', 'isCurrentPage': false}, {'href': 'http://see-programming.blogspot.in/p/c-graphics.html', 'title': 'C Graphics', 'isCurrentPage': false}, {'href': 'http://see-programming.blogspot.in/p/data-structures.html', 'title': 'DataStructures', 'isCurrentPage': false}, {'href': 'http://see-programming.blogspot.in/p/pointers.html', 'title': 'C Library', 'isCurrentPage': false}], 'mobile': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'footer-3', null, document.getElementById('Attribution1'), {'attribution': 'CProgrammer. Picture Window template. Template images by \74a href\75\47http://www.istockphoto.com/googleimages.php?id\07510989085\46platform\75blogger\46langregion\75en_GB\47 target\75\47_blank\47\76merrymoonmary\74/a\76. Powered by \74a href\75\47http://www.blogger.com\47 target\75\47_blank\47\76Blogger\74/a\76.'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/2115967362-lbx__en_gb.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/4138445517-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_CustomSearchView', new _WidgetInfo('CustomSearch1', 'sidebar-right-1', null, document.getElementById('CustomSearch1'), {'title': 'Search This Blog', 'includeBlog': true, 'includePostLinks': true, 'includeWeb': true, 'linkLists': [], 'blogUrl': 'http://see-programming.blogspot.com/', 'loadingMsg': 'Loading...', 'thisBlogMsg': 'This Blog', 'linkedFromHereMsg': 'Linked From Here', 'theWebMsg': 'The Web', 'backgroundColor': '#ffffff', 'textColor': '#000000', 'dateColor': '#6f6f6f', 'linkColor': '#860e0e', 'urlColor': '#860e0e', 'visitedLinkColor': '#2c0000', 'borderColor': '#dbdbdb', 'activeBorderColor': '#dbdbdb'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar-right-1', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowByEmailView', new _WidgetInfo('FollowByEmail1', 'sidebar-right-1', null, document.getElementById('FollowByEmail1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'sidebar-right-1', null, document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'sidebar-right-1', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_StatsView', new _WidgetInfo('Stats1', 'sidebar-right-2-2', null, document.getElementById('Stats1'), {'title': 'Pageviews', 'showGraphicalCounter': true, 'showAnimatedCounter': true, 'showSparkline': false, 'statsUrl': '//see-programming.blogspot.in/b/stats?style\75BLACK_TRANSPARENT\46timeRange\75ALL_TIME\46token\75M5Ob2kMBAAA.uS8qG5v4N3zhPDRzpCqFwRhKSKsE_OVHeUJ3v5VUokc.dzgOS6wg6QRO9vzxdeQkxQ'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-right-2-1', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label3', 'sidebar-right-2-1', null, document.getElementById('Label3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar', null, document.getElementById('Navbar1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'footer-1', null, document.getElementById('Label1'), {}, 'displayModeFull'));
+</script>
+
+</body></html>

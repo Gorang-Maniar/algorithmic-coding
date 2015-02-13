@@ -1,0 +1,19 @@
+/*gcd using recursions*/
+#include<stdio.h>
+int gcd(int a,int b)
+{
+	int r;
+	if(b==0)
+		return a;
+	else 
+		gcd(b,a%b);
+}
+
+int main()
+{
+	int a,b,c;
+scanf("%d %d",&a,&b);
+c=gcd(a,b);
+printf("%d\n",c);
+return 0;
+}

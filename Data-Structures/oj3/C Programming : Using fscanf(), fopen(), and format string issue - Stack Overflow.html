@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>C Programming : Using fscanf(), fopen(), and format string issue - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=fd7230a85918">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6">
+    <meta name="og:title" content="C Programming : Using fscanf(), fopen(), and format string issue">
+    <meta name="og:description" content="I have a data file called accounts.dat that is structured like below:
+
+1000:Cash
+3000:Common Shares Outstanding
+1400:Office Equipment
+
+
+I am using fopen() to open/link the file. And I am using fsca...">
+    <meta name="og:url" content="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue">
+    <link rel="canonical" href="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue">
+
+    
+    
+    <script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/ados.js" async="" type="text/javascript"></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/quant.js" async=""></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/beacon.js" async=""></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/analytics.js" async=""></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/ados_002.js" async="" type="text/javascript"></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/jquery.js"></script>
+    <script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/stub.js"></script>
+    <link rel="stylesheet" type="text/css" href="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'C Programming : Using fscanf(), fopen(), and format string issue'" href="http://stackoverflow.com/feeds/question/13676025">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:13676025});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '13676025');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1399381141,"networkMetaHostname":"meta.stackexchange.com","styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"cdd965d3b14b2bf0733b0b863052339a","isAnonymous":true,"ab":{"welcome_email":{"v":"3","g":1}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"f3dffee60c16","js/moderator.en.js":"852a9590ae2d","js/full-anon.en.js":"11c0b112a69c","js/full.en.js":"a4a7ca765419","js/wmd.en.js":"330aa6c2b155","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"7941bebc75af","js/help.en.js":"701f09b56814","js/tageditor.en.js":"340d20710574","js/tageditornew.en.js":"fae1e0ec4837","js/inline-tag-editing.en.js":"d00846e90065","js/revisions.en.js":"e12fec389eab","js/review.en.js":"ea65111224b7","js/tagsuggestions.en.js":"bb4721d888d2","js/post-validation.en.js":"0e52d1a0290c","js/explore-qlist.en.js":"8b8b631bd679","js/events.en.js":"a0a08c3fe31f"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+        
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/full-anon.js" async=""></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/post-validation.js" async=""></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/prettify-full.js" async=""></script><script src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/adFeedback.js" type="text/javascript"></script><link href="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/adFeedback.css" rel="stylesheet"></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link" href="http://careers.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Careers 2.0
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+                        <a href="https://stackoverflow.com/users/signup?returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f13676025%2fc-programming-using-fscanf-fopen-and-format-string-issue" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a>
+                    or
+                    <a href="https://stackoverflow.com/users/login?returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f13676025%2fc-programming-using-fscanf-fopen-and-format-string-issue" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a>
+
+                    to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 123 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                            <a href="https://stackoverflow.com/users/signup?returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f13676025%2fc-programming-using-fscanf-fopen-and-format-string-issue" class="login-link">sign up</a>
+                            <a href="https://stackoverflow.com/users/login?returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f13676025%2fc-programming-using-fscanf-fopen-and-format-string-issue" class="login-link">log in</a>
+                            <a href="http://stackoverflow.com/tour">tour</a>
+
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                        Tour
+                        <span class="item-summary">
+                            Start here for a quick overview of the site
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                            <a href="http://careers.stackoverflow.com/">careers 2.0</a>
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () {
+        //topbar.init();
+        StackExchange.topbar.init();
+    });
+</script>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://stackoverflow.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/apple-touch-icon.png">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://stackoverflow.com/about" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a question and answer site for 
+professional and enthusiast programmers. It's 100% free, no registration
+ required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue" class="question-hyperlink">C Programming : Using fscanf(), fopen(), and format string issue</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="13676025" id="question">
+    
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1733304095",4).setZone(43) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1733304095"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjI5MTEsImNoIjoxMTc4LCJjciI6NTkyMCwiZGkiOiI3YjM3MWJmYjM2ZTA0MmQ5ODM1ZjJmOTlmOTU5MjdkOSIsImRtIjoxLCJmYyI6MTAxODUsImZsIjo3NDcyLCJrdyI6ImMsZnNjYW5mIiwibnciOjIyLCJwYyI6MCwicHIiOjE2MDQsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTImdmVkPTBDRElRRmpBQiZ1cmw9aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xMzY3NjAyNS9jLXByb2dyYW1taW5nLXVzaW5nLWZzY2FuZi1mb3Blbi1hbmQtZm9ybWF0LXN0cmluZy1pc3N1ZSZlaT1lTnhvVTZxR0E4UFVyUWVwMm9DSUFnJnVzZz1BRlFqQ05FWTJQdmRHbUVWXzBWNFJjaXlpRXRWeDFER09BJmJ2bT1idi42NjExMTAyMixkLmJtayIsInN0Ijo4Mjc3LCJ1ayI6InVlMS0yMGI1MGI3YjRkYTY0NzlmOTY3ZGZkZThkMmQ0MDY0YiIsInpuIjo0MywidHMiOjEzOTkzODExODU4OTMsInVyIjoiaHR0cDovL2NhcmVlcnMuc3RhY2tvdmVyZmxvdy5jb20vIn0&amp;s=E5wRHNv64wqZGODkXwUMiOxNr80" rel="nofollow" target="_blank" title=""><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/60abb4b317034aa2af0bc697e6f02963.png" title="" alt="" border="0" height="90" width="728"></a><div class="adzerk-vote-controls" style="display: none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/i.gif" border="0" height="0px" width="0px"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="13676025" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">1</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b></b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I have a data file called accounts.dat that is structured like below:</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="lit">1000</span><span class="pun">:</span><span class="typ">Cash</span><span class="pln">
+</span><span class="lit">3000</span><span class="pun">:</span><span class="typ">Common</span><span class="pln"> </span><span class="typ">Shares</span><span class="pln"> </span><span class="typ">Outstanding</span><span class="pln">
+</span><span class="lit">1400</span><span class="pun">:</span><span class="typ">Office</span><span class="pln"> </span><span class="typ">Equipment</span></code></pre>
+
+<p>I am using fopen() to open/link the file. And I am using fscanf() to 
+retrieve the values based on the format string - "%d:%[^:]\n". The %d 
+represent the account number, ':' is the deliminator, and [^:] is all 
+chars except ':'.</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="pln"> </span><span class="kwd">void</span><span class="pln"> getdataf</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+     </span><span class="typ">FILE</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> infileaccs</span><span class="pun">;</span><span class="pln">
+     </span><span class="typ">FILE</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> infiletrans</span><span class="pun">;</span><span class="pln">
+     </span><span class="typ">int</span><span class="pln"> acctnumf</span><span class="pun">;</span><span class="pln">
+     </span><span class="kwd">char</span><span class="pln"> acctdesf</span><span class="pun">[</span><span class="pln">DESMAX</span><span class="pun">];</span><span class="pln">
+
+     </span><span class="kwd">char</span><span class="pln"> filenameacc</span><span class="pun">[</span><span class="lit">40</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">"accounts.dat"</span><span class="pun">;</span><span class="pln">
+     infileaccs </span><span class="pun">=</span><span class="pln"> fopen</span><span class="pun">(</span><span class="pln">filenameacc</span><span class="pun">,</span><span class="pln"> </span><span class="str">"r"</span><span class="pun">);</span><span class="pln">
+     </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">infileaccs</span><span class="pun">==</span><span class="pln">NULL</span><span class="pun">){</span><span class="pln">
+         printf</span><span class="pun">(</span><span class="str">" **File \"accounts.dat\" could not be read\n"</span><span class="pun">);</span><span class="pln">
+         printf</span><span class="pun">(</span><span class="str">" **Previously entered account titles are not available\n"</span><span class="pun">);</span><span class="pln">
+         printf</span><span class="pun">(</span><span class="str">" **Any previously entered transactions will not be used\n"</span><span class="pun">);</span><span class="pln">
+     </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pun">{</span><span class="pln">
+         </span><span class="typ">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+         </span><span class="kwd">while</span><span class="pun">(</span><span class="pln">fscanf</span><span class="pun">(</span><span class="pln">infileaccs</span><span class="pun">,</span><span class="pln"> </span><span class="str">"%d:%[^:]\n"</span><span class="pun">,&amp;</span><span class="pln">acctnumf</span><span class="pun">,</span><span class="pln">acctdesf</span><span class="pun">)!=</span><span class="pln"> EOF</span><span class="pun">){</span><span class="pln">
+             acct</span><span class="pun">[</span><span class="pln">i</span><span class="pun">++]=</span><span class="pln">acctnumf</span><span class="pun">;</span><span class="pln">
+             srtaccttyp</span><span class="pun">(</span><span class="pln">acctnumf</span><span class="pun">,</span><span class="pln"> i</span><span class="pun">);</span><span class="pln">
+             printf</span><span class="pun">(</span><span class="str">"------------&gt;Added unique acct type %d!\n"</span><span class="pun">,</span><span class="pln"> accttyp</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]);</span><span class="pln">
+             printf</span><span class="pun">(</span><span class="str">"------------&gt;element: %d is added into acct array in position acct[%d]\n"</span><span class="pun">,</span><span class="pln">acctnumf</span><span class="pun">,</span><span class="pln">i</span><span class="pun">);</span><span class="pln">
+             nacct</span><span class="pun">++;</span><span class="pln">
+             accttitle</span><span class="pun">(</span><span class="pln">acctdesf</span><span class="pun">);</span><span class="pln">
+         </span><span class="pun">}</span><span class="pln">
+         fclose</span><span class="pun">(</span><span class="pln">infileaccs</span><span class="pun">);</span><span class="pln">
+     </span><span class="pun">}</span><span class="pln"> </span><span class="pun">}</span></code></pre>
+
+<p>However this code does not work, it just freezes. Please let me know if you need more info, thanks in advance. </p>
+
+<p>It seems to stop at the while loop.</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag js-gps-track" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/fscanf" class="post-tag js-gps-track" title="show questions tagged 'fscanf'" rel="tag">fscanf</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/13676025" title="short permalink to this question" class="short-link" id="link-post-13676025">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/13676025/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/13676025/revisions" title="show all edits to this post">edited <span title="2012-12-03 01:43:23Z" class="relativetime">Dec 3 '12 at 1:43</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/19465/niall-c"><div><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/c310c0454f3734954e59094072c3ddad.jpeg" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/19465/niall-c">Niall C.</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">6,536</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="31 silver badges"><span class="badge2"></span><span class="badgecount">31</span></span><span title="40 bronze badges"><span class="badge3"></span><span class="badgecount">40</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2012-12-03 01:40:33Z" class="relativetime">Dec 3 '12 at 1:40</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1215072/roxxar"><div><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/d56e91c506ea42c42941c4e3be53ec17.png" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1215072/roxxar">roxxar</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">8</span><span title="6 bronze badges"><span class="badge3"></span><span class="badgecount">6</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-13676025" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-13676025" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								2 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="13676269"></a>
+<div id="answer-13676269" class="answer accepted-answer" data-answerid="13676269">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="13676269" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">1</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Your <code>fscanf</code> format</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="kwd">while</span><span class="pun">(</span><span class="pln">fscanf</span><span class="pun">(</span><span class="pln">infileaccs</span><span class="pun">,</span><span class="pln"> </span><span class="str">"%d:%[^:]\n"</span><span class="pun">,&amp;</span><span class="pln">acctnumf</span><span class="pun">,</span><span class="pln">acctdesf</span><span class="pun">)!=</span><span class="pln"> EOF</span><span class="pun">)</span></code></pre>
+
+<p>scans the number in the first line, then the colon, and then stores all characters until the colon on the next line in <code>acctdesf</code>. Then all subsequent <code>fscanf</code>s fail to convert a string beginning with <code>':'</code> to an <code>int</code>, trapping you in an infinite loop.</p>
+
+<p>You want to read just up to the next line,</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="typ">int</span><span class="pln"> convs</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">while</span><span class="pun">((</span><span class="pln">convs </span><span class="pun">=</span><span class="pln"> fscanf</span><span class="pun">(</span><span class="pln">infileaccs</span><span class="pun">,</span><span class="pln"> </span><span class="str">"%d:%[^\n]"</span><span class="pun">,&amp;</span><span class="pln">acctnumf</span><span class="pun">,</span><span class="pln">acctdesf</span><span class="pun">))</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">/* do something */</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">convs </span><span class="pun">!=</span><span class="pln"> EOF</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">/* oops */</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>so that the number starting the next line is still there for the next <code>fscanf</code>.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/13676269" title="short permalink to this answer" class="short-link" id="link-post-13676269">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/13676269/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-12-03 02:14:09Z" class="relativetime">Dec 3 '12 at 2:14</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1011995/daniel-fischer"><div class="gravatar-wrapper-32"><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/ztWNo.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1011995/daniel-fischer">Daniel Fischer</a><br>
+        <span class="reputation-score" title="reputation score 111075" dir="ltr">111k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="169 silver badges"><span class="badge2"></span><span class="badgecount">169</span></span><span title="283 bronze badges"><span class="badge3"></span><span class="badgecount">283</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-13676269" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-18773691" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thanks man, cleared up a lot of issues, thanks everyone.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1215072/roxxar" title="8 reputation" class="comment-user owner">roxxar</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment18773691_13676269"><span title="2012-12-03 02:31:33Z" class="relativetime-clean">Dec 3 '12 at 2:31</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-13676269" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+<div class="newsletter-anon">
+    <img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/apple-touch-icon.png" class="newsletter-logo">
+    <div class="newsletter-container">
+        <h2>Did you find this question interesting? Try our newsletter</h2>
+        <p class="newsletter-description">
+            Sign up for our newsletter and get our top new questions delivered to your inbox (<a href="http://stackexchange.com/newsletters/newsletter?site=stackoverflow.com" id="newsletter-preview">see an example</a>).
+        </p>
+        <form id="anon-newsletter-form">
+            <input value="email address" disabled="disabled" class="actual-edit-overlay" style="opacity: 1; position: absolute; background-color: white; color: black; width: 150px; height: 17px; line-height: 17px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 13px; text-align: start; border-left: 1px solid rgb(153, 153, 153); border-right: 1px solid rgb(153, 153, 153); border-style: solid; border-color: rgb(153, 153, 153); border-width: 1px;" type="email"><input class="edit-field-overlayed" style="opacity: 0.4; z-index: 1; position: relative;" id="newsletter-email-input" type="email">
+            <span class="edit-field-overlay">email address</span>
+            <input value="Subscribe" id="newsletter-email-submit" type="submit">            
+        </form>
+    </div>
+</div>
+<script>
+    StackExchange.ready(function () {
+        StackExchange.newsletterAd.init();
+    });
+    
+    StackExchange.helpers.bindHelpOverlayEvents($("#newsletter-email-input"));
+    
+    StackExchange.using("gps", function () {
+        StackExchange.gps.track("newsletter.show", { newsletter_type: "nlquestionad" }, true);
+    });
+    
+    $('#anon-newsletter-form').submit(function () {
+        var $form = $(this);
+        var $input = $form.find('#newsletter-email-input');
+        var $submit = $form.find('#newsletter-email-submit');
+
+        var email = $.trim($input.val());
+        if (email.length == 0) {
+            return false;
+        }
+        StackExchange.helpers.addSpinner($form);
+
+        $.ajax({
+            url: '/newsletter/signup/anon',
+            type: 'POST',
+            dataType: 'json',
+            data: { email: email, viaAnonNewsletterAd: true },
+            success: function (data) {
+                if (data.status == 'confirmed' && !data.error) {
+                    $input.attr('disabled', true);
+                    $submit.replaceWith('<div style="margin-top: 10px;"><strong>Subscribed!</strong></div>');
+                }
+                else if (data.status == 'unconfirmed' && !data.error) {
+                    $input.attr('disabled', true);
+                    $submit.replaceWith('<div style="margin-top: 10px;"><strong>Success!</strong> Please click the link in the confirmation email to activate your subscription.</div>');
+                }
+                else {
+                    $form.showErrorMessage(data.error || 'There was a problem signing up for the newsletter. Please try again later.');
+                }
+            },
+            error: function () {
+                $form.showErrorMessage('There was a problem signing up for the newsletter. Please try again later.');
+            },
+            complete: function () {
+                StackExchange.helpers.removeSpinner($form);
+            }
+        });
+
+        return false;
+    });
+</script>
+  
+<a name="13676067"></a>
+<div id="answer-13676067" class="answer" data-answerid="13676067">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="13676067" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p><code>fscanf</code> can return 0 if there was no data that matched the given format, but you are only checking for <code>EOF</code>. What you should do is check the result of <code>fscanf</code> which will tell you how many items were successfully scanned, in this case, you want to ensure that <code>fscanf</code> is returning either 2, or EOF, and if it is neither then there was a data formatting issue in your input.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/13676067" title="short permalink to this answer" class="short-link" id="link-post-13676067">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/13676067/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-12-03 01:46:20Z" class="relativetime">Dec 3 '12 at 1:46</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/10320/dreamlax"><div><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/cd3604f9fb208a90bfe6655072372684.png" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/10320/dreamlax">dreamlax</a><br>
+        <span class="reputation-score" title="reputation score 44736" dir="ltr">44.7k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="95 silver badges"><span class="badge2"></span><span class="badgecount">95</span></span><span title="142 bronze badges"><span class="badge3"></span><span class="badgecount">142</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-13676067" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-18773347" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I think their might be 
+something wrong with my format, fscanf is giving me 0. How must I 
+rewrite my format string (%d:%[^:]\n) to match the structured in my 
+accounts.dat file</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1215072/roxxar" title="8 reputation" class="comment-user owner">roxxar</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment18773347_13676067"><span title="2012-12-03 01:58:37Z" class="relativetime-clean">Dec 3 '12 at 1:58</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-13676067" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/13676025/answer/submit" method="post" class="post-form">
+							<input id="post-id" value="13676025" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="cdd965d3b14b2bf0733b0b863052339a" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f13676025%2fc-programming-using-fscanf-fopen-and-format-string-issue%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f13676025%2fc-programming-using-fscanf-fopen-and-format-string-issue%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/fscanf" class="post-tag" title="show questions tagged 'fscanf'" rel="tag">fscanf</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2012-12-03 01:40:33Z"><b>1 year ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>1247 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/13676025/c-programming-using-fscanf-fopen-and-format-string-issue?lastactivity" class="lastactivity-link" title="2012-12-03 02:14:09Z">1 year ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk560237600",17).setZone(45) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk560237600"><div id="careersadsdoublehigh" style="display:none;"></div><img src="C%20Programming%20:%20Using%20fscanf%28%29,%20fopen%28%29,%20and%20format%20string%20issue%20-%20Stack%20Overflow_files/i_002.gif" border="0" height="0px" width="0px"></div>  
+    <div id="hireme">
+        <script>
+window.careers_adurl="//careers.stackoverflow.com/gethired/js",window.careers_cssurl="//cdn-careers.sstatic.net/careers/gethired/sidebar.min.css?v=c886aec35a12",window.careers_leaderboardcssurl="{leaderboardcssurl}",window.careers_companycssurl="//cdn-careers.sstatic.net/careers/gethired/company",window.careers_adselector="div#hireme",StackExchange.ready(function(){$.ajax({url:"//cdn-careers.sstatic.net/careers/gethired/loader.min.js?v=2e03522d3ebb",dataType:"script",cache:!0})});        </script>
+    </div>
+			  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/4402423?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/4402423/reading-multiple-strings-with-fscanf-in-c?rq=1" class="question-hyperlink">Reading multiple strings with fscanf in C</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/8295121?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/8295121/fscanf-filter-c?rq=1" class="question-hyperlink">fscanf() filter, C</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/10372423?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/10372423/strange-input-with-fscanf?rq=1" class="question-hyperlink">Strange input with fscanf</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/15562599?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/15562599/c-programming-basic-fscanf-issues-with-doubles?rq=1" class="question-hyperlink">C programming: Basic fscanf issues with doubles</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/17561495?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/17561495/using-fscanf-in-c?rq=1" class="question-hyperlink">Using fscanf in C</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/18028324?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/18028324/replace-a-string-in-text-file-with-just-fprintf-and-fscanf?rq=1" class="question-hyperlink">Replace a string in text file with just fprintf and fscanf</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/18908967?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/18908967/infinite-loop-fscanf-string-textfile-c-programming?rq=1" class="question-hyperlink">infinite loop fscanf string textfile c programming</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/20304760?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/20304760/issue-with-using-fscanf-in-a-loop?rq=1" class="question-hyperlink">Issue with using fscanf() in a loop</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/20831123?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/20831123/problems-using-fscanf-with-formatted-text-file?rq=1" class="question-hyperlink">Problems using fscanf with formatted text file</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/22183416?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/22183416/fscanf-issue-reading-in-from-file?rq=1" class="question-hyperlink">fscanf issue reading in from file</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-parenting" title="Parenting Stack Exchange"></div><a href="http://parenting.stackexchange.com/questions/12454/pros-cons-of-having-two-kids-birthdays-on-the-same-date" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:228 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Pros/cons of having two kids' birthdays on the same date
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-matheducators" title="Mathematics Educators Stack Exchange"></div><a href="http://matheducators.stackexchange.com/questions/2151/what-to-do-when-you-get-the-empty-stare" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:548 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What to do when you get "the empty stare"?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/57295/paypal-sent-an-email-addressing-me-with-one-of-my-old-passwords-as-my-name" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Paypal sent an email addressing me with one of my old passwords as my name
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/461144/how-to-replace-spaces-with-newlines-enter-in-a-text-file" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to replace spaces with newlines/enter in a text-file?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/57310/a-tiny-version-of-wget-51-bytes" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A tiny version of wget (51 bytes?)
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/783436/find-the-value-of-tan100-tan125-tan100tan125" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Find the value of: tan(100) + tan(125) + tan(100)•tan(125)
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/175512/is-there-any-environment-that-works-exactly-like-beginequation-but-without-g" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there any environment that works exactly like \begin{equation}, but without going into math-mode?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/109298/fet-vs-bipolar-junction-transistor" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    FET vs bipolar junction transistor
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/26652/the-easy-way-to-code-golf-ascii-art" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The easy way to code-golf ascii art!
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/37103/what-is-my-guy-syndrome" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is "my guy syndrome?"
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/20322/surface-plots-vs-colour-maps" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Surface plots vs. colour maps
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/23490185/implement-method-with-ref-qualifier" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    implement method with ref qualifier
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/783192/how-to-solve-a-puzzle-with-numerals" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to solve a puzzle with numerals
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/166889/what-makes-a-legendary-legendary" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What makes a "legendary" legendary?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/37180/how-do-you-deal-with-a-dm-who-says-no-to-everything" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do you deal with a DM who says "no" to everything?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/20325/citing-an-instrument-manual" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Citing an instrument manual
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/47332/parametric-interpolation-of-2d-data" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Parametric Interpolation of 2D data
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/56730/why-are-the-profile-pictures-rounded-nowadays" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are the profile pictures rounded nowadays?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/23705/how-should-i-deal-with-bullying-while-looking-for-a-new-job" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How should I deal with bullying while looking for a new job?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/23492381/does-git-warn-me-if-a-shorthand-commit-id-can-refer-to-2-different-commits" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does Git warn me if a shorthand commit ID can refer to 2 different commits?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/175582/how-to-control-the-crossings-between-double-lines" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to control the crossings between double lines?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/26780/is-there-a-flight-search-engine-that-combines-flights-from-different-airlines" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a flight search engine that combines flights from different airlines?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/168352/raper-vs-rapist-why-the-shift-in-suffix" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Raper vs. Rapist; Why the shift in suffix?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/782093/what-are-well-defined-functions" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are well-defined functions?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/13676025" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/13676025/ivc/4e41');});
+</script>
+<noscript>
+    <div><img src="/posts/13676025/ivc/4e41" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-c</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/about">about</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                        <a href="http://stackoverflow.com/help/badges">badges</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MjAsImNtIjo5NTQsImNoIjoxMTc4LCJjciI6Mjc3NiwiZG0iOjQsImZjIjoyODYyLCJmbCI6Mjc1MSwibnciOjIyLCJydiI6MCwicHIiOjExNSwic3QiOjAsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2Fib3V0L2NvbnRhY3QiLCJyZSI6MX0&amp;s=hRods5B22XvRBwWIwtIMekcyNF8">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="professional graphic designers and non-designers trying to do their own graphic design">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.5.5.1588
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('c,fscanf');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        
+        ga('set', 'dimension2', '|c|fscanf|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

@@ -1,0 +1,17 @@
+/* print hello world i times using recursions */ 
+#include<stdio.h>
+void  main()
+{	static int i,j=0;
+	if(j==0)
+{
+	scanf("%d",&i);
+	j++;
+}
+if(i>0)
+{
+	printf("hello world\n");
+	i--;
+	main();
+	}
+return 0;
+}

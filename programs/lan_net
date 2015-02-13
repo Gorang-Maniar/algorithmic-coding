@@ -1,0 +1,4 @@
+sudo apt-get install gksu
+sudo vim /etc/NetworkManager/NetworkManager.conf
+change false to true in the file
+sudo service network-manager restart
